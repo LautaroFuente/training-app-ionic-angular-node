@@ -1,5 +1,5 @@
 -- Tabla para los usuarios
-CREATE TABLE Users (
+CREATE TABLE User (
     id INT AUTO_INCREMENT PRIMARY KEY,           -- ID del usuario, clave primaria
     name VARCHAR(100) NOT NULL,                  -- Nombre del usuario
     email VARCHAR(100) NOT NULL UNIQUE,          -- Correo electrónico único
@@ -9,14 +9,14 @@ CREATE TABLE Users (
 );
 
 -- Tabla para los grupos musculares
-CREATE TABLE Muscle_Groups (
+CREATE TABLE Muscle_Group (
     id INT AUTO_INCREMENT PRIMARY KEY,           -- ID del grupo muscular
     name VARCHAR(100) NOT NULL,                  -- Nombre del grupo muscular (Ej: Pecho, Espalda)
     description TEXT                             -- Descripción opcional del grupo muscular
 );
 
 -- Tabla para los ejercicios
-CREATE TABLE Exercises (
+CREATE TABLE Exercise (
     id INT AUTO_INCREMENT PRIMARY KEY,           -- ID del ejercicio
     name VARCHAR(100) NOT NULL,                  -- Nombre del ejercicio
     description TEXT,                            -- Descripción del ejercicio
@@ -27,7 +27,7 @@ CREATE TABLE Exercises (
 );
 
 -- Tabla para las rutinas
-CREATE TABLE Routines (
+CREATE TABLE Routine (
     id INT AUTO_INCREMENT PRIMARY KEY,           -- ID de la rutina
     name VARCHAR(100) NOT NULL,                  -- Nombre de la rutina
     description TEXT,                            -- Descripción de la rutina
@@ -37,7 +37,7 @@ CREATE TABLE Routines (
 );
 
 -- Tabla intermedia para los ejercicios en las rutinas
-CREATE TABLE Routine_Exercises (
+CREATE TABLE Routine_Exercise (
     id INT AUTO_INCREMENT PRIMARY KEY,           -- ID de la relación
     routine_id INT,                              -- ID de la rutina
     exercise_id INT,                             -- ID del ejercicio
