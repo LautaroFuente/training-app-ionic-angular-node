@@ -7,4 +7,4 @@ router.get("/", getAllExercises);
 router.post("/", );
 router.get("/:id",);
 
-export default Router;
+export default router;

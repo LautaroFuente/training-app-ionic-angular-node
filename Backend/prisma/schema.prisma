@@ -1,0 +1,95 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Modelo para la tabla 'User' (Usuarios)
+model User {
+  id               Int       @id @default(autoincrement()) // ID del usuario
+  name             String    // Nombre del usuario
+  email            String    @unique // Correo electrónico único
+  password         String    // Contraseña (almacenada en forma de hash)
+  registrationDate DateTime  @default(now()) // Fecha de registro
+  gender           String?   // Género (opcional) ('M', 'F', 'Otro')
+  routines         Routine[] // Relación con las rutinas creadas por el usuario
+  weeklyCalendar   WeeklyCalendar[] // Relación con el calendario semanal
+  progress         UserProgress[] // Relación con el progreso del usuario
+}
+
+// Modelo para la tabla 'Muscle_Group' (Grupos musculares)
+model MuscleGroup {
+  id          Int       @id @default(autoincrement()) // ID del grupo muscular
+  name        String    // Nombre del grupo muscular
+  description String?   // Descripción del grupo muscular (opcional)
+  exercises   Exercise[] // Relación con los ejercicios
+}
+
+// Modelo para la tabla 'Exercise' (Ejercicios)
+model Exercise {
+  id            Int            @id @default(autoincrement()) // ID del ejercicio
+  name          String         // Nombre del ejercicio
+  description   String?        // Descripción del ejercicio (opcional)
+  videoUrl      String?        // URL de un video (opcional)
+  imageUrl      String?        // URL de una imagen (opcional)
+  muscleGroupId Int            // ID del grupo muscular
+  muscleGroup   MuscleGroup    @relation(fields: [muscleGroupId], references: [id]) // Relación con MuscleGroup
+  routineExercise RoutineExercise[] // Relación con los ejercicios en las rutinas
+  userProgress   UserProgress[] // Relación con el progreso del usuario
+}
+
+// Modelo para la tabla 'Routine' (Rutinas)
+model Routine {
+  id            Int               @id @default(autoincrement()) // ID de la rutina
+  name          String            // Nombre de la rutina
+  description   String?           // Descripción de la rutina (opcional)
+  creationDate  DateTime          @default(now()) // Fecha de creación
+  userId        Int               // ID del usuario creador
+  user          User              @relation(fields: [userId], references: [id]) // Relación con el usuario
+  routineExercise RoutineExercise[] // Relación con los ejercicios asignados en la rutina
+  weeklyCalendar WeeklyCalendar[] // Relación con el calendario semanal
+}
+
+// Modelo para la tabla intermedia 'Routine_Exercise' (Ejercicios en las rutinas)
+model RoutineExercise {
+  id            Int       @id @default(autoincrement()) // ID de la relación
+  routineId     Int       // ID de la rutina
+  exerciseId    Int       // ID del ejercicio
+  repetitions   Int?      // Repeticiones recomendadas (opcional)
+  sets          Int?      // Series recomendadas (opcional)
+  weight        Float?    // Peso recomendado (opcional)
+  routine       Routine   @relation(fields: [routineId], references: [id]) // Relación con Routine
+  exercise      Exercise  @relation(fields: [exerciseId], references: [id]) // Relación con Exercise
+}
+
+// Modelo para la tabla 'Weekly_Calendar' (Calendario semanal)
+model WeeklyCalendar {
+  id        Int       @id @default(autoincrement()) // ID de la asignación
+  userId    Int       // ID del usuario
+  day       String    // Día de la semana (Ej: Lunes, Martes, etc.)
+  routineId Int       // ID de la rutina asignada
+  user      User      @relation(fields: [userId], references: [id]) // Relación con User
+  routine   Routine   @relation(fields: [routineId], references: [id]) // Relación con Routine
+}
+
+// Modelo para la tabla 'User_Progress' (Progreso del usuario)
+model UserProgress {
+  id              Int       @id @default(autoincrement()) // ID del progreso
+  userId          Int       // ID del usuario
+  exerciseId      Int       // ID del ejercicio
+  date            DateTime  @default(now()) // Fecha del progreso
+  repetitionsCompleted Int   // Repeticiones realizadas
+  weightUsed      Float?    // Peso utilizado (opcional)
+  notes           String?   // Notas adicionales (opcional)
+  user            User      @relation(fields: [userId], references: [id]) // Relación con User
+  exercise        Exercise  @relation(fields: [exerciseId], references: [id]) // Relación con Exercise
+}
