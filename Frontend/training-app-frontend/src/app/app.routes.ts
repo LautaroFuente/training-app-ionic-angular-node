@@ -1,4 +1,3 @@
-import { Routes } from '@angular/router';
 import { HomePage } from './pages/home/home.page';
 import { CreateRoutineComponent } from './pages/create-routine/create-routine.component';
 import { ListExercisesComponent } from './pages/list-exercises/list-exercises.component';
@@ -8,6 +7,7 @@ import { MyRoutinesComponent } from './pages/my-routines/my-routines.component';
 import { ProgressComponent } from './pages/progress/progress.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { SchedulerRoutinesComponent } from './pages/scheduler-routines/scheduler-routines.component';
+import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {

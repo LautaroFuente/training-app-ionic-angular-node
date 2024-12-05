@@ -5,7 +5,7 @@
     {
       "files": ["*.ts"],
       "parserOptions": {
-        "project": ["tsconfig.json"],
+        "project": ["Frontend/training-app-frontend/tsconfig.json"],
         "createDefaultProgram": true
       },
       "extends": [
