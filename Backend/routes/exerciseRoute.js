@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/", getAllExercises);
 router.post("/", addExercise);
-router.get("/:id", getOneExercise);
+router.get("/:name", getOneExercise);
 router.delete("/delete/:id", deleteOneExercise);
 
 export default router;

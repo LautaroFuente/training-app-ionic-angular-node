@@ -8,42 +8,45 @@ export const exercise = {
             return prisma.exercise.findMany();    
         } catch (error) {
             console.log("Error al devolver todos los ejercicios en el servicio", err);
-            throw new Error("Error al devolver todos los ejercicios en el servicio");
+            return null;
         }
     },
 
-    addExercise: async () => {
+    addExercise: async (dataBody) => {
+
         try {
             return prisma.exercise.create({
-                data:{
-                    name,
-                    description,
-                    muscle_group_id,
-                    video_url,
-                    image_url
-                }
+                data: dataBody
             });    
         } catch (error) {
             console.log("Error al agregar un ejercicio en el servicio", err);
-            throw new Error("Error al agregar un ejercicio en el servicio");
+            return null;
         }
     },
 
-    getOneExercise: async () => {
-        try {
-            return prisma.exercise.findMany();    
+    getOneExercise: async (name) => {
+        try { 
+            return prisma.exercise.findUnique({
+                where:{
+                    name:name
+                }
+            });   
         } catch (error) {
             console.log("Error al buscar un ejercicio en el servicio", err);
-            throw new Error("Error al buscar un ejercicio en el servicio");
+            return null;
         }
     },
 
-    deleteOneExercise: async () => {
+    deleteOneExercise: async (id) => {
         try {
-            return prisma.exercise.findMany();    
+            return prisma.exercise.delete({
+                where:{
+                    id:id
+                }
+            });   
         } catch (error) {
             console.log("Error al eliminar un ejercicio en el servicio", err);
-            throw new Error("Error al eliminar un ejercicio en el servicio");
+            return null;
         }
     },
 }

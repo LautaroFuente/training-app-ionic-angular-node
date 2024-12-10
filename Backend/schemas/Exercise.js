@@ -5,3 +5,10 @@ export const ExerciseSchema = z.object({
     video_url: z.string().url().optional(),  // URL válida para el video (opcional)
     image_url: z.string().url().optional(),  // URL válida para la imagen (opcional)
   });
+
+export const ExerciseNameSchema = ExerciseSchema.pick({
+  name: true,  // Solo seleccionamos el campo "name" del ExerciseSchema
+});
+
+export const ExerciseIdSchema = z.number().int().positive('El ID debe ser un número positivo entero');
+  
