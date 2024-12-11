@@ -5,7 +5,7 @@ const router = Router();
 
 router.get("/", getAllMuscleGroups);
 router.post("/", addMuscleGroup);
-router.get("/:id", getOneMuscleGroup);
+router.get("/:name", getOneMuscleGroup);
 router.delete("/delete/:id", deleteOneMuscleGroup);
 
 export default router;

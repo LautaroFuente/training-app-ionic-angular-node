@@ -7,7 +7,7 @@ export const exercise = {
         try {
             return prisma.exercise.findMany();    
         } catch (error) {
-            console.log("Error al devolver todos los ejercicios en el servicio", err);
+            console.log("Error al devolver todos los ejercicios en el servicio", error);
             return null;
         }
     },
@@ -19,7 +19,7 @@ export const exercise = {
                 data: dataBody
             });    
         } catch (error) {
-            console.log("Error al agregar un ejercicio en el servicio", err);
+            console.log("Error al agregar un ejercicio en el servicio", error);
             return null;
         }
     },
@@ -32,7 +32,7 @@ export const exercise = {
                 }
             });   
         } catch (error) {
-            console.log("Error al buscar un ejercicio en el servicio", err);
+            console.log("Error al buscar un ejercicio en el servicio", error);
             return null;
         }
     },
@@ -45,7 +45,7 @@ export const exercise = {
                 }
             });   
         } catch (error) {
-            console.log("Error al eliminar un ejercicio en el servicio", err);
+            console.log("Error al eliminar un ejercicio en el servicio", error);
             return null;
         }
     },
