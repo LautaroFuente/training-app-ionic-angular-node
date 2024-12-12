@@ -8,7 +8,7 @@ export const MuscleGroupSchema = z.object({
     .max(500, "La descripción no puede exceder los 500 caracteres")  // Limitar la longitud de la descripción si se proporciona
 });
 
-export const MuscleGroupNameSchema = muscleGroupSchema.pick({
+export const MuscleGroupNameSchema = MuscleGroupSchema.pick({
     name: true  // Solo validamos el campo 'name'
   });
 

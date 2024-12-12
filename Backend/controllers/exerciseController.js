@@ -8,7 +8,7 @@ export const getAllExercises = async (req, res) =>{
         if(data != null){
             res.status(200).json(data);
         }else{
-            res.status(500).json({Error:"Erro al obtener todos los recursos en la base de datos"});
+            res.status(500).json({Error:"Error al obtener todos los recursos en la base de datos"});
         }
         
     } catch (error) {

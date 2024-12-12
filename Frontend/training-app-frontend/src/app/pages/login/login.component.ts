@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule, Validators } 
 import { Router, RouterModule } from '@angular/router';
 import { IonContent} from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
-import { Subject } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
+import { GlobalUserService } from 'src/app/services/global-user.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +22,7 @@ export class LoginComponent  implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder, private authService: AuthService, private userGlobal: GlobalUserService) { }
 
   ngOnInit() {
     this.formLogin = this.fb.group({
@@ -30,7 +32,21 @@ export class LoginComponent  implements OnInit, OnDestroy {
   }
 
   onSubmit(): void {
-
+    if(this.formLogin.valid){
+      const {email, password} = this.formLogin.value;
+      this.authService.auth(email, password).pipe(takeUntil(this.unsubscribe$)).subscribe(
+        (response) =>{
+          console.log('Usuario logueado correctamente');
+          const { token, name, email } = response.data;
+          this.userGlobal.login(name, email, token);
+          this.router.navigate(['/login-menu']);
+        },
+        (error) =>{
+          console.log('Error al loguear el usuario', error);
+        });
+    }else {
+      console.log('Formulario no válido'); 
+    }
   }
 
   ngOnDestroy(): void {

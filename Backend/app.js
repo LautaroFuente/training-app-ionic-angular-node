@@ -9,6 +9,7 @@ import routineRoute from "./routes/routineRoute.js";
 import userProgressRoute from "./routes/userProgressRoute.js";
 import userRoute from "./routes/userRoute.js";
 import weeklyCalendarRoute from "./routes/weeklyCalendarRoute.js";
+import authRoute from "./routes/authRoute.js";
 
 const app = express();
 
@@ -27,5 +28,6 @@ app.use("/server/routine", routineRoute);
 app.use("/server/userProgress", userProgressRoute);
 app.use("/server/user", userRoute);
 app.use("/server/weeklyCalendar", weeklyCalendarRoute);
+app.user("/server/auth", authRoute);
 
 export default app;
