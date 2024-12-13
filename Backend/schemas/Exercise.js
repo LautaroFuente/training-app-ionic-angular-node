@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 export const ExerciseSchema = z.object({
     name: z.string().min(1, 'El nombre del ejercicio es obligatorio'),  // El nombre debe ser una cadena no vacía
     description: z.string().optional(),  // La descripción es opcional

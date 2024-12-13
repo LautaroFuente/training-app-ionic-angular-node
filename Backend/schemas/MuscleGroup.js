@@ -1,4 +1,4 @@
-const { z } = require('zod');
+import { z } from "zod";
 
 export const MuscleGroupSchema = z.object({
   name: z.string()

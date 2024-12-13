@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 // Esquema para validar el formulario cuando el usuario ingresa los datos de una rutina
 export const RoutineSchema = z.object({
     name: z.string()

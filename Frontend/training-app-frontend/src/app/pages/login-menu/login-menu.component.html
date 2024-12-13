@@ -1,3 +1,13 @@
-<p>
-  login-menu works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Mi app de entrenamiento</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <ion-button expand="block" (click)="goToCreateRoutine()">Crear Rutina</ion-button>
+  <ion-button expand="block" (click)="goToMyRoutines()">Mis Rutinas</ion-button>
+  <ion-button expand="block" (click)="goToExercises()">Ver Ejercicios</ion-button>
+  <ion-button expand="block" (click)="goToMyProgress()">Mi Progreso</ion-button>
+  <ion-button expand="block" (click)="goToCalendary()">Ver Calendario</ion-button>
+  <ion-button expand="block" (click)="closeSession()">Cerrar Sesion</ion-button>
+</ion-content>
