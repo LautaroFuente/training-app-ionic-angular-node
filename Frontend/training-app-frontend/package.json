@@ -27,7 +27,13 @@
     "@capacitor/keyboard": "6.0.3",
     "@capacitor/status-bar": "6.0.2",
     "@ionic/angular": "^8.0.0",
+    "@react-navigation/native": "^7.0.14",
+    "@react-navigation/stack": "^7.1.0",
     "ionicons": "^7.2.1",
+    "react-native-gesture-handler": "^2.21.2",
+    "react-native-reanimated": "^3.16.5",
+    "react-native-safe-area-context": "^5.0.0",
+    "react-native-screens": "^4.3.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.2"
