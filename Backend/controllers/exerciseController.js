@@ -6,9 +6,9 @@ export const getAllExercises = async (req, res) =>{
         let data = await exercise.getAllExercises();
 
         if(data != null){
-            res.status(200).json(data);
+            return res.status(200).json(data);
         }else{
-            res.status(500).json({Error:"Error al obtener todos los recursos en la base de datos"});
+            return res.status(500).json({Error:"Error al obtener todos los recursos en la base de datos"});
         }
         
     } catch (error) {
@@ -59,7 +59,7 @@ export const getOneExercise = async (req, res) =>{
             let data = await exercise.getOneExercise(name);
             
             if(data != null){
-                res.status(200).json(data);
+                return res.status(200).json(data);
             }else{
                 return res.status(500).json({Error:"Error al obtener el recurso en la base de datos"});
             }
@@ -84,7 +84,7 @@ export const deleteOneExercise = async (req, res) =>{
             let data = await exercise.deleteOneExercise(id);
             
             if(data != null){
-                res.status(200).json(data);
+                return res.status(200).json(data);
             }else{
                 return res.status(500).json({Error:"Error al eliminar el recurso en la base de datos"});
             }

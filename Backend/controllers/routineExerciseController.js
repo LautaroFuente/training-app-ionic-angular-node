@@ -7,9 +7,9 @@ export const getAllRoutineRoutineExercises = async (req, res) =>{
         let data = await routineExercise.getAllRoutineExercises();
 
         if(data != null){
-            res.status(200).json(data);
+            return res.status(200).json(data);
         }else{
-            res.status(500).json({Error:"Error al obtener todos los recursos en la base de datos"});
+            return res.status(500).json({Error:"Error al obtener todos los recursos en la base de datos"});
         }
         
     } catch (error) {
@@ -54,7 +54,7 @@ export const getOneRoutineExercise = async (req, res) =>{
             let data = await routineExercise.getOneRoutineExercise(id);
             
             if(data != null){
-                res.status(200).json(data);
+                return res.status(200).json(data);
             }else{
                 return res.status(500).json({Error:"Error al obtener el recurso en la base de datos"});
             }
@@ -79,7 +79,7 @@ export const deleteOneRoutineExercise = async (req, res) =>{
             let data = await routineExercise.deleteOneRoutineExercise(id);
             
             if(data != null){
-                res.status(200).json(data);
+                return res.status(200).json(data);
             }else{
                 return res.status(500).json({Error:"Error al eliminar el recurso en la base de datos"});
             }
