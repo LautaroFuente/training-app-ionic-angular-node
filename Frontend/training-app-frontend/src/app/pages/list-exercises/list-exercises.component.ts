@@ -1,17 +1,20 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { ExercisesService } from 'src/app/services/exercises.service';
-import { Exercise } from 'src/app/interfaces/exercise';
+import { Exercise } from 'src/app/interfaces/Exercise';
 import { Subject, takeUntil } from 'rxjs';
+import { IonicModule } from '@ionic/angular';
 
 @Component({
   selector: 'app-list-exercises',
   templateUrl: './list-exercises.component.html',
   styleUrls: ['./list-exercises.component.scss'],
+  standalone: true,
+  imports: [IonicModule],
 })
 export class ListExercisesComponent  implements OnInit, OnDestroy {
 
-  private exercises!: Exercise[];
+  exercises!: Exercise[];
 
   private unsubscribe$ = new Subject<void>();
 

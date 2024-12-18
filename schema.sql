@@ -52,21 +52,16 @@ CREATE TABLE Routine_Exercise (
 CREATE TABLE Weekly_Calendar (
     id INT AUTO_INCREMENT PRIMARY KEY,           -- ID de la asignación
     user_id INT,                                 -- ID del usuario
-    day VARCHAR(10),                             -- Día de la semana (Ej: Lunes, Martes, etc.)
-    routine_id INT,                              -- ID de la rutina asignada
     FOREIGN KEY (user_id) REFERENCES Users(id),  -- Relación con Users
-    FOREIGN KEY (routine_id) REFERENCES Routines(id) -- Relación con Routines
 );
 
--- Tabla para el progreso del usuario
-CREATE TABLE User_Progress (
-    id INT AUTO_INCREMENT PRIMARY KEY,           -- ID del progreso
-    user_id INT,                                 -- ID del usuario
-    exercise_id INT,                             -- ID del ejercicio
-    date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,    -- Fecha del progreso
-    repetitions_completed INT,                   -- Repeticiones realizadas
-    weight_used DECIMAL(5,2),                    -- Peso utilizado (opcional)
-    notes TEXT,                                  -- Notas adicionales (opcional)
-    FOREIGN KEY (user_id) REFERENCES Users(id),  -- Relación con Users
-    FOREIGN KEY (exercise_id) REFERENCES Exercises(id) -- Relación con Exercises
+-- Tabla para los dias de la semana
+CREATE TABLE day (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- ID
+    name VARCHAR(10), -- Nombre del dia de la semana
+    status ENUM('assigned', 'empty') DEFAULT 'empty',  -- Estado de cada día (si está asignado o vacío)
+    routine_id INT, -- ID de la rutina asignada al dia
+    weekly_calendar_id INT, -- ID del calendario semanal al que pertenece el día
+    FOREIGN KEY (routine_id) REFERENCES Routines(id), -- Relacion con Routines
+    FOREIGN KEY (weekly_calendar_id) REFERENCES Weekly_Calendar(id)  -- Relación con Weekly_Calendar
 );
