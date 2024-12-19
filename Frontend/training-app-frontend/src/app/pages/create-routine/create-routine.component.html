@@ -1,3 +1,32 @@
-<p>
-  create-routine works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Crear Rutina</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      @for (exercise of exercises; track exercise.id) {
+        <div class="swiper-slide">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{ exercise.name }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{ exercise.imageUrl }}
+            </ion-card-content>
+          </ion-card>
+        </div>
+      }
+    </div>
+  
+    <!-- Paginación -->
+    <div class="swiper-pagination"></div>
+  
+    <!-- Botones de navegación -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  
+</ion-content>
+

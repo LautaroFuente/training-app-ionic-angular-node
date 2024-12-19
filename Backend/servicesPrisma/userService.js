@@ -24,11 +24,11 @@ export const user = {
         }
     },
 
-    getOneUser: async (name) => {
+    getOneUser: async (email) => {
         try { 
             return prisma.user.findUnique({
                 where:{
-                    name:name
+                    email:email
                 }
             });   
         } catch (error) {
