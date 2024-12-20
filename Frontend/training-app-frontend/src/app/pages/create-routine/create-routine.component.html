@@ -8,7 +8,7 @@
     <div class="swiper-wrapper">
       @for (exercise of exercises; track exercise.id) {
         <div class="swiper-slide">
-          <ion-card>
+          <ion-card (click)="onCardClick(exercise)">
             <ion-card-header>
               <ion-card-title>{{ exercise.name }}</ion-card-title>
             </ion-card-header>
@@ -27,6 +27,10 @@
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
   </div>
+
+  <!-- Contenedor de ejercicios seleccionados -->
+
+  <!-- Formulario modal de repeticiones, series y peso relacionado al ejercicio -->
   
 </ion-content>
 

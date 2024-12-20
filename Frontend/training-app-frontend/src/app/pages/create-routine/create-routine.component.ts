@@ -6,6 +6,7 @@ import { Exercise } from 'src/app/interfaces/Exercise';
 import { Subject, takeUntil } from 'rxjs';
 import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
+import { RepsExerciseDTO } from 'src/app/interfaces/reps-exercise-dto';
 
 
 @Component({
@@ -19,16 +20,17 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
 
   swiper!: Swiper;
   exercises!: Exercise[];
+  selectedExercises: RepsExerciseDTO[] = [];
 
   private unsubscribe$ = new Subject<void>();
 
   constructor(private router: Router, private exercisesService: ExercisesService) { }
 
   ngAfterViewInit() {
-    this.iniciarSwiper();
+    this.initSwiper();
   }
 
-  iniciarSwiper() {
+  initSwiper() {
     this.swiper = new Swiper('.swiper-container', {
       loop: true,
       slidesPerView: 3,
@@ -68,6 +70,26 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
         console.log('Error al obtener los ejercicios', error);
       }
     );
+  }
+
+  // Se clickea card abrir formulario modal para seleccionar las opciones relacionadas al ejercicio
+  onCardClick(exercise: Exercise): void {
+    this.selectedExercises.push()
+  }
+
+  // Se envia formulario modal, agregar ejercicio a la lista de seleccionados
+  onCardClickSubmit(): void {
+
+  }
+
+  // Se clickea boton de borrar de una card, eliminar dicho ejercicio de la lista de seleccionados
+  onDeleteCardClick(): void {
+
+  }
+
+  // Se clickea para terminar la rutina y se crea dicha rutina con los ejercicios relacionados, mostrar cartel de aviso
+  onSubmitFinishRoutine(): void {
+
   }
 
   ngOnDestroy(): void {
