@@ -1,5 +1,5 @@
-import { RoutineSchema, RoutineNameSchema, RoutineIdSchema } from "../schemas/Routine";
-import { routine } from "../servicesPrisma/routineService";
+import { RoutineSchema, RoutineNameSchema, RoutineIdSchema } from "../schemas/Routine.js";
+import { routine } from "../servicesPrisma/routineService.js";
 
 export const getAllRoutines = async (req, res) =>{
     try {

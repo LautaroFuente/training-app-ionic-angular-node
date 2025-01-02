@@ -1,8 +1,8 @@
-import { RoutineExerciseSchema, RoutineExerciseIdSchema } from "../schemas/RoutineRoutineExercise.js"
+import { RoutineExerciseSchema, RoutineExerciseIdSchema } from "../schemas/RoutineExercise.js"
 import { routineExercise } from "../servicesPrisma/routineExerciseService.js";
 
 
-export const getAllRoutineRoutineExercises = async (req, res) =>{
+export const getAllRoutineExercises = async (req, res) =>{
     try {
         let data = await routineExercise.getAllRoutineExercises();
 

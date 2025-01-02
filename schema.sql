@@ -23,7 +23,7 @@ CREATE TABLE Exercise (
     muscle_group_id INT,                         -- ID del grupo muscular (relacionado con Muscle_Groups)
     video_url VARCHAR(255),                      -- URL de un video (opcional)
     image_url VARCHAR(255),                      -- URL de una imagen (opcional)
-    FOREIGN KEY (muscle_group_id) REFERENCES Muscle_Groups(id)  -- Relación con Muscle_Groups
+    FOREIGN KEY (muscle_group_id) REFERENCES Muscle_Group(id)  -- Relación con Muscle_Groups
 );
 
 -- Tabla para las rutinas
@@ -52,6 +52,8 @@ CREATE TABLE Routine_Exercise (
 CREATE TABLE Weekly_Calendar (
     id INT AUTO_INCREMENT PRIMARY KEY,           -- ID de la asignación
     user_id INT,                                 -- ID del usuario
+    start_date DATE,                            -- Fecha de inicio de la semana
+    end_date DATE,                              -- Fecha de fin de la semana
     FOREIGN KEY (user_id) REFERENCES Users(id),  -- Relación con Users
 );
 
@@ -62,6 +64,23 @@ CREATE TABLE day (
     status ENUM('assigned', 'empty') DEFAULT 'empty',  -- Estado de cada día (si está asignado o vacío)
     routine_id INT, -- ID de la rutina asignada al dia
     weekly_calendar_id INT, -- ID del calendario semanal al que pertenece el día
+    completed BOOLEAN DEFAULT FALSE,                 -- Si el día fue completado o no (progreso)
     FOREIGN KEY (routine_id) REFERENCES Routines(id), -- Relacion con Routines
     FOREIGN KEY (weekly_calendar_id) REFERENCES Weekly_Calendar(id)  -- Relación con Weekly_Calendar
 );
+
+-- Tabla para el progreso del usuario
+CREATE TABLE User_Progress (
+    id INT AUTO_INCREMENT PRIMARY KEY,         -- ID del progreso
+    user_id INT,                               -- ID del usuario
+    day_id INT,                                -- ID del día (de la tabla `day`)
+    routine_id INT,                            -- ID de la rutina asignada
+    exercise_id INT,                           -- ID del ejercicio asignado
+    completed BOOLEAN DEFAULT FALSE,           -- Si el ejercicio fue completado o no
+    completion_date TIMESTAMP,                 -- Fecha en la que el ejercicio fue completado
+    FOREIGN KEY (user_id) REFERENCES Users(id), -- Relación con Users
+    FOREIGN KEY (day_id) REFERENCES day(id),   -- Relación con Day
+    FOREIGN KEY (routine_id) REFERENCES Routines(id), -- Relación con Routine
+    FOREIGN KEY (exercise_id) REFERENCES Exercises(id) -- Relación con Exercise
+);
+

@@ -1,6 +1,13 @@
 import { PrismaClient } from '@prisma/client'
+import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient()
+
+async function hashPassword(password) {
+    const salt = 10;
+    const hashedPassword = await bcrypt.hash(password, salt);
+    return hashedPassword;
+  }
 
 export const user = {
     getAllUsers: async () => {
@@ -15,9 +22,15 @@ export const user = {
     addUser: async (dataBody) => {
 
         try {
-            return prisma.user.create({
-                data: dataBody
-            });    
+            const hashedPassword = await hashPassword(dataBody.password);
+
+            const user = await prisma.user.create({
+                data: {
+                    ...dataBody,
+                    password: hashedPassword, 
+                },
+            });
+            return user;   
         } catch (error) {
             console.log("Error al agregar un usuario en el servicio", error);
             return null;

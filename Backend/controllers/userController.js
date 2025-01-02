@@ -1,5 +1,5 @@
-import { userSchema, userEmailSchema, userIdSchema } from "../schemas/User";
-import { user } from "../servicesPrisma/userService";
+import { userSchema, userEmailSchema, userIdSchema } from "../schemas/User.js";
+import { user } from "../servicesPrisma/userService.js";
 
 export const getAllUsers = async (req, res) =>{
     try {
@@ -29,7 +29,6 @@ export const addUser = async (req, res) =>{
             if(existingUser != null){
                 return res.status(409).json({Message:"El usuario a crear ya existe"});
             }
-
             let data = await user.addUser(req.body);
 
             if(data != null){
@@ -78,6 +77,7 @@ export const getOneUser = async (req, res) =>{
 export const deleteOneUser = async (req, res) =>{
     try {
         const { id } = req.params;
+        console.log(id);
         const result = userIdSchema.safeParse(id);
 
         if(result.success){

@@ -5,8 +5,8 @@ import checkToken  from "../middleware/checkToken.js";
 const router = Router();
 
 router.get("/", checkToken, getAllUsers);
-router.post("/", checkToken, addUser);
-router.get("/:id", checkToken, getOneUser);
+router.post("/", addUser);
+router.get("/:email", checkToken, getOneUser);
 router.delete("/delete/:id", checkToken, deleteOneUser);
 
 export default router;

@@ -1,5 +1,5 @@
-import { userEmailSchema } from "../schemas/User";
-import { user } from "../servicesPrisma/userService";
+import { userEmailSchema } from "../schemas/User.js";
+import { user } from "../servicesPrisma/userService.js";
 import bcrypt from "bcrypt";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
@@ -17,21 +17,20 @@ export const login = async (req, res) => {
 
         const result = userEmailSchema.safeParse({email});
 
-        if(result.succes){
-            let searchUser = user.getOneUser(email);
+        if(result.success){
+            let searchUser = await user.getOneUser(email);
 
             if(searchUser != null){
                 const match = await checkPassword(
-                    searchUser[0].password,
+                    searchUser.password,
                     password
                   );
             
                   if (match) {
-                    data = await employeds.getOneEmployed(dni);
-                    const token = jwt.sign({ dni }, process.env.JWT_KEY, {
+                    const token = jwt.sign({ email }, process.env.JWT_KEY, {
                       expiresIn: "30m",
                     });
-                    res.status(200).json({ token, data });
+                    res.status(200).json({ token, searchUser });
                   } else {
                     res.status(401).json({ error: "Contraseña incorrecta" });
                   }

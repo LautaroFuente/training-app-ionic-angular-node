@@ -1,5 +1,5 @@
-import { MuscleGroupIdSchema, MuscleGroupNameSchema, MuscleGroupSchema } from "../schemas/MuscleGroup";
-import { muscleGroup } from "../servicesPrisma/muscleGroupService";
+import { MuscleGroupIdSchema, MuscleGroupNameSchema, MuscleGroupSchema } from "../schemas/MuscleGroup.js";
+import { muscleGroup } from "../servicesPrisma/muscleGroupService.js";
 
 export const getAllMuscleGroups = async (req, res) =>{
     try {

@@ -28,6 +28,6 @@ app.use("/server/routine", routineRoute);
 app.use("/server/userProgress", userProgressRoute);
 app.use("/server/user", userRoute);
 app.use("/server/weeklyCalendar", weeklyCalendarRoute);
-app.user("/server/auth", authRoute);
+app.use("/server/auth", authRoute);
 
 export default app;

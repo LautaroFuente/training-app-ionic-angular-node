@@ -6,8 +6,8 @@ export const RoutineSchema = z.object({
       .min(1, { message: "El nombre es obligatorio" })   // Asegura que el nombre no esté vacío
       .max(100, { message: "El nombre no puede superar los 100 caracteres" }),  // Asegura que no exceda 100 caracteres
     description: z.string()
-      .optional()  // Este campo es opcional
-      .max(500, { message: "La descripción no puede superar los 500 caracteres" }),  // Limita la descripción a 500 caracteres
+      .max(500, { message: "La descripción no puede superar los 500 caracteres" })  // Limita la descripción a 500 caracteres
+      .optional()  // Este campo es opcional,
 });
 
 // Esquema para validar solo el campo `name` del formulario

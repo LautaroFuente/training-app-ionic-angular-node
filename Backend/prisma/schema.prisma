@@ -57,6 +57,8 @@ model Routine {
   user          User              @relation(fields: [userId], references: [id]) // Relación con el usuario
   routineExercise RoutineExercise[] // Relación con los ejercicios asignados en la rutina
   weeklyCalendar WeeklyCalendar[] // Relación con el calendario semanal
+  days          Day[]             // Relación con los días de la semana
+  userProgress     UserProgress[]     // Relación con el progreso del usuario (relación opuesta con UserProgress)
 }
 
 // Modelo para la tabla intermedia 'Routine_Exercise' (Ejercicios en las rutinas)
@@ -75,21 +77,38 @@ model RoutineExercise {
 model WeeklyCalendar {
   id        Int       @id @default(autoincrement()) // ID de la asignación
   userId    Int       // ID del usuario
-  day       String    // Día de la semana (Ej: Lunes, Martes, etc.)
-  routineId Int       // ID de la rutina asignada
+  startDate DateTime  // Fecha de inicio de la semana
+  endDate   DateTime  // Fecha de fin de la semana
   user      User      @relation(fields: [userId], references: [id]) // Relación con User
-  routine   Routine   @relation(fields: [routineId], references: [id]) // Relación con Routine
+  days      Day[]     // Relación con los días de la semana
+  routines  Routine[] // Relación con Routine (relación opuesta)
+}
+
+// Modelo para la tabla 'Day' (Días de la semana)
+model Day {
+  id               Int        @id @default(autoincrement()) // ID del día
+  name             String     // Nombre del día de la semana
+  status           String     @default("empty") // Estado de cada día (asignado o vacío)
+  routineId       Int?       // ID de la rutina asignada al día
+  weeklyCalendarId Int       // ID del calendario semanal al que pertenece el día
+  completed        Boolean   @default(false) // Si el día fue completado o no
+  routine          Routine?  @relation(fields: [routineId], references: [id]) // Relación con Routine
+  weeklyCalendar   WeeklyCalendar @relation(fields: [weeklyCalendarId], references: [id]) // Relación con WeeklyCalendar
+  progress         UserProgress[] // Relación con UserProgress (progreso del usuario)
 }
 
 // Modelo para la tabla 'User_Progress' (Progreso del usuario)
 model UserProgress {
-  id              Int       @id @default(autoincrement()) // ID del progreso
-  userId          Int       // ID del usuario
-  exerciseId      Int       // ID del ejercicio
-  date            DateTime  @default(now()) // Fecha del progreso
-  repetitionsCompleted Int   // Repeticiones realizadas
-  weightUsed      Float?    // Peso utilizado (opcional)
-  notes           String?   // Notas adicionales (opcional)
-  user            User      @relation(fields: [userId], references: [id]) // Relación con User
-  exercise        Exercise  @relation(fields: [exerciseId], references: [id]) // Relación con Exercise
+  id                   Int       @id @default(autoincrement()) // ID del progreso
+  userId               Int       // ID del usuario
+  dayId                Int       // ID del día (de la tabla Day)
+  routineId           Int       // ID de la rutina asignada
+  exerciseId          Int       // ID del ejercicio asignado
+  completed           Boolean   @default(false) // Si el ejercicio fue completado o no
+  completionDate      DateTime  @default(now()) // Fecha en la que el ejercicio fue completado
+  user                User      @relation(fields: [userId], references: [id]) // Relación con User
+  day                 Day       @relation(fields: [dayId], references: [id]) // Relación con Day
+  routine             Routine   @relation(fields: [routineId], references: [id]) // Relación con Routine
+  exercise           Exercise  @relation(fields: [exerciseId], references: [id]) // Relación con Exercise
 }
+
