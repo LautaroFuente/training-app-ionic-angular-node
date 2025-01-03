@@ -1,4 +1,4 @@
-import { RoutineSchema, RoutineNameSchema, RoutineIdSchema } from "../schemas/Routine.js";
+import { RoutineSchema, RoutineIdSchema } from "../schemas/Routine.js";
 import { routine } from "../servicesPrisma/routineService.js";
 
 export const getAllRoutines = async (req, res) =>{
@@ -52,11 +52,11 @@ export const addRoutine = async (req, res) =>{
 
 export const getOneRoutine = async (req, res) =>{
     try {
-        const { name } = req.params;
-        const result = RoutineNameSchema.safeParse({name});
+        const { id } = req.params;
+        const result = RoutineIdSchema.safeParse({id});
 
         if(result.success){
-            let data = await routine.getOneRoutine(name);
+            let data = await routine.getOneRoutine(id);
             
             if(data != null){
                 return res.status(200).json(data);

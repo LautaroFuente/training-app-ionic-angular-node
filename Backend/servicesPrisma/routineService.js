@@ -24,11 +24,11 @@ export const routine = {
         }
     },
 
-    getOneRoutine: async (name) => {
+    getOneRoutine: async (id) => {
         try { 
             return prisma.routine.findUnique({
                 where:{
-                    name:name
+                    id:id
                 }
             });   
         } catch (error) {

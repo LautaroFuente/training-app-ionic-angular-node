@@ -27,7 +27,7 @@ export const login = async (req, res) => {
                   );
             
                   if (match) {
-                    const token = jwt.sign({ email }, process.env.JWT_KEY, {
+                    const token = jwt.sign({ email: searchUser.email, userId: searchUser.id }, process.env.JWT_KEY, {
                       expiresIn: "30m",
                     });
                     res.status(200).json({ token, searchUser });

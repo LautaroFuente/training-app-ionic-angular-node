@@ -4,10 +4,10 @@ const prisma = new PrismaClient()
 
 export const weeklyCalendar = {
 
-    addExercise: async (dataBody) => {
+    addWeeklyCalendar: async (dataBody) => {
 
         try {
-            return prisma.exercise.create({
+            return prisma.weeklyCalendar.create({
                 data: dataBody
             });    
         } catch (error) {
@@ -16,9 +16,22 @@ export const weeklyCalendar = {
         }
     },
 
-    deleteOneExercise: async (id) => {
+    getOneWeeklyCalendar: async (id) => {
+            try { 
+                return prisma.weeklyCalendar.findUnique({
+                    where:{
+                        id:id
+                    }
+                });   
+            } catch (error) {
+                console.log("Error al buscar un calendario en el servicio", error);
+                return null;
+            }
+        },
+
+    deleteOneWeeklyCalendar: async (id) => {
         try {
-            return prisma.exercise.delete({
+            return prisma.weeklyCalendar.delete({
                 where:{
                     id:id
                 }
