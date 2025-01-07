@@ -1,7 +1,7 @@
-import { routine } from "../servicesPrisma/routineService";
-import { userProgress } from "../servicesPrisma/userProgressService";
-import { user } from "../servicesPrisma/userService";
-import { weeklyCalendar } from "../servicesPrisma/weeklyCalendarService";
+import { routine } from "../servicesPrisma/routineService.js";
+import { userProgress } from "../servicesPrisma/userProgressService.js";
+import { user } from "../servicesPrisma/userService.js";
+import { weeklyCalendar } from "../servicesPrisma/weeklyCalendarService.js";
 
 
 const checkPermissionsToDelete = async (req, res, next) => {

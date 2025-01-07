@@ -4,7 +4,8 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <div class="swiper-container">
+  <!-- Contenedor de ejercicios para seleccionar -->
+  <div class="swiper-container-to-select">
     <div class="swiper-wrapper">
       @for (exercise of exercises; track exercise.id) {
         <div class="swiper-slide">
@@ -21,16 +22,115 @@
     </div>
   
     <!-- Paginación -->
-    <div class="swiper-pagination"></div>
+    <div class="swiper-pagination swiper-pagination-to-select"></div>
   
     <!-- Botones de navegación -->
-    <div class="swiper-button-next"></div>
-    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next swiper-to-select-button-next"></div>
+    <div class="swiper-button-prev swiper-to-select-button-prev"></div>
   </div>
 
   <!-- Contenedor de ejercicios seleccionados -->
+  <div class="swiper-container-selected">
+    <div class="swiper-wrapper">
+      @for (repsExercise of selectedExercises; track repsExercise.exercise.id) {
+        <div class="swiper-slide">
+          <ion-card (click)="onDeleteCardClick(repsExercise)">
+            <ion-card-header>
+              <ion-card-title>{{ repsExercise.exercise.name }}</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{ repsExercise.exercise.imageUrl }}
+            </ion-card-content>
+          </ion-card>
+        </div>
+      }
+    </div>
+  
+    <!-- Paginación -->
+    <div class="swiper-pagination swiper-selected-pagination"></div>
+  
+    <!-- Botones de navegación -->
+    <div class="swiper-button-next swiper-selected-button-next"></div>
+    <div class="swiper-button-prev swiper-selected-button-prev"></div>
+  </div>
 
   <!-- Formulario modal de repeticiones, series y peso relacionado al ejercicio -->
+  <ion-modal [isOpen]="isModalOpen" (willDismiss)="onWillDismiss($event)">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-buttons slot="start">
+            <ion-button (click)="cancel()">Cancelar</ion-button>
+          </ion-buttons>
+          <ion-title>Formulario</ion-title>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-item>
+
+          <form [formGroup]="formToExercise" (ngSubmit)="confirm()">
+
+            <ion-item>
+              <ion-label position="floating">Series</ion-label>
+              <ion-input type="number" formControlName="sets"></ion-input>
+            </ion-item>
+
+            @if (formToExercise.get('sets')?.touched && formToExercise.get('sets')?.invalid) {
+              <div>
+                <ion-text color="danger">
+                  @if (formToExercise.get('sets')?.hasError('required')) {
+                    <p>El campo Series es obligatorio.</p>
+                  }
+                  @if(formToExercise.get('sets')?.hasError('min')) {
+                    <p>El campo Series debe ser mayor a 0.</p>
+                  }
+                </ion-text>
+              </div>
+            }
+        
+            <ion-item>
+              <ion-label position="floating">Repeticiones</ion-label>
+              <ion-input type="number" formControlName="repetitions"></ion-input>
+            </ion-item>
+
+            @if (formToExercise.get('repetitions')?.touched && formToExercise.get('repetitions')?.invalid) {
+              <div>
+                <ion-text color="danger">
+                  @if (formToExercise.get('repetitions')?.hasError('required')) {
+                    <p>El campo Repeticiones es obligatorio.</p>
+                  }
+                  @if(formToExercise.get('repetitions')?.hasError('min')) {
+                    <p>El campo Repeticiones debe ser mayor a 0.</p>
+                  }
+                </ion-text>
+              </div>
+            }
+
+            <ion-item>
+              <ion-label position="floating">Peso</ion-label>
+              <ion-input type="number" formControlName="weight"></ion-input>
+            </ion-item>
+        
+            @if (formToExercise.get('weight')?.touched && formToExercise.get('weight')?.invalid) {
+              <div>
+                <ion-text color="danger">
+                  @if (formToExercise.get('weight')?.hasError('required')) {
+                    <p>El campo Peso es obligatorio.</p>
+                  }
+                  @if(formToExercise.get('weight')?.hasError('min')) {
+                    <p>El campo Peso debe ser mayor a 0.</p>
+                  }
+                </ion-text>
+              </div>
+            }
+
+            <ion-button expand="full" type="submit" [disabled]="formToExercise.invalid">Enviar</ion-button>
+            
+          </form>
+        </ion-item>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
   
 </ion-content>
 

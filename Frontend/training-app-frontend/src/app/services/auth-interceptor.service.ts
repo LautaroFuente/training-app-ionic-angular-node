@@ -34,7 +34,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   // Método para comprobar si la URL debe ser excluida
   private isExcludedUrl(url: string): boolean {
-    const excludedUrls = ['/login'];
+    const excludedUrls = ['http://localhost:3000/server/auth/login', 'http://localhost:3000/server/user/register'];
     return excludedUrls.some(excludedUrl => url.includes(excludedUrl));
   }
 }

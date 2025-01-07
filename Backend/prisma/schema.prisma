@@ -26,7 +26,7 @@ model User {
   progress         UserProgress[] // Relación con el progreso del usuario
 }
 
-// Modelo para la tabla 'Muscle_Group' (Grupos musculares)
+// Modelo para la tabla 'MuscleGroup' (Grupos musculares)
 model MuscleGroup {
   id          Int       @id @default(autoincrement()) // ID del grupo muscular
   name        String    // Nombre del grupo muscular
@@ -61,7 +61,7 @@ model Routine {
   userProgress     UserProgress[]     // Relación con el progreso del usuario (relación opuesta con UserProgress)
 }
 
-// Modelo para la tabla intermedia 'Routine_Exercise' (Ejercicios en las rutinas)
+// Modelo para la tabla intermedia 'RoutineExercise' (Ejercicios en las rutinas)
 model RoutineExercise {
   id            Int       @id @default(autoincrement()) // ID de la relación
   routineId     Int       // ID de la rutina
@@ -73,7 +73,7 @@ model RoutineExercise {
   exercise      Exercise  @relation(fields: [exerciseId], references: [id]) // Relación con Exercise
 }
 
-// Modelo para la tabla 'Weekly_Calendar' (Calendario semanal)
+// Modelo para la tabla 'WeeklyCalendar' (Calendario semanal)
 model WeeklyCalendar {
   id        Int       @id @default(autoincrement()) // ID de la asignación
   userId    Int       // ID del usuario
@@ -97,7 +97,7 @@ model Day {
   progress         UserProgress[] // Relación con UserProgress (progreso del usuario)
 }
 
-// Modelo para la tabla 'User_Progress' (Progreso del usuario)
+// Modelo para la tabla 'UserProgress' (Progreso del usuario)
 model UserProgress {
   id                   Int       @id @default(autoincrement()) // ID del progreso
   userId               Int       // ID del usuario

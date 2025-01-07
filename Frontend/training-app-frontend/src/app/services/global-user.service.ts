@@ -9,15 +9,17 @@ export class GlobalUserService {
   private name :string = "";
   private email :string = "";
   private token :string = "";
+  private id :number = 0;
 
-  private apiDeleteUserUrl = '';
+  private apiDeleteUserUrl = 'http://localhost:3000/server/user/delete/';
 
   constructor(private http: HttpClient) {}
 
-  login(name: string, email: string, token: string ) {
+  login(name: string, email: string, token: string, id: number ) {
     this.name = name;
     this.email = email;
     this.token = token;
+    this.id = id;
   }
 
   logout() {
