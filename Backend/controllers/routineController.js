@@ -1,4 +1,5 @@
 import { RoutineSchema, RoutineIdSchema } from "../schemas/Routine.js";
+import { routineExercise } from "../servicesPrisma/routineExerciseService.js";
 import { routine } from "../servicesPrisma/routineService.js";
 
 export const getAllRoutines = async (req, res) =>{
@@ -20,19 +21,32 @@ export const getAllRoutines = async (req, res) =>{
 
 export const addRoutine = async (req, res) =>{
     try {
-        let result = RoutineSchema.safeParse(req.body);
+        let {name, description, userId, listExercises} = req.body;
+        let result = RoutineSchema.safeParse({name, description});
 
         if(result.success){
-            let { name } = req.body;
             let existingRoutine = await routine.getOneRoutine(name);
 
             if(existingRoutine != null){
                 return res.status(409).json({Message:"La rutina a crear ya existe"});
             }
 
-            let data = await routine.addRoutine(req.body);
+            let data = await routine.addRoutine({name, description, userId});
 
             if(data != null){
+
+                const exercisePromises = listExercises.map(exercise =>
+                    routineExercise.addRoutineExercise({
+                        routineId: data.id,
+                        exerciseId: exercise.exercise.id,
+                        repetitions: exercise.repetitions,
+                        sets: exercise.sets,
+                        weight: exercise.weight
+                    })
+                );
+
+                await Promise.all(exercisePromises);
+                
                 return res.status(201).json(data);
             }else{
                 return res.status(500).json({Error:"Error al crear el recurso en la base de datos"});

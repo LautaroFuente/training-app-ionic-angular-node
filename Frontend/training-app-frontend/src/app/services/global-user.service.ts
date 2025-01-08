@@ -48,4 +48,8 @@ export class GlobalUserService {
   getToken(): string {
     return this.token;
   }
+
+  getId(): number {
+    return this.id;
+  }
 }
