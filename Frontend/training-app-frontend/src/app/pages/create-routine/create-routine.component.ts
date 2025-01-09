@@ -14,6 +14,9 @@ import { OverlayEventDetail } from '@ionic/core/components';
 import { ToastController } from '@ionic/angular';
 import { RoutineService } from 'src/app/services/routine.service';
 import { GlobalUserService } from 'src/app/services/global-user.service';
+import { ExerciseCardComponent } from 'src/app/components/exercise-card/exercise-card.component';
+import { SelectedExerciseCardComponent } from 'src/app/components/selected-exercise-card/selected-exercise-card.component';
+import { ModalFormExerciseComponent } from 'src/app/components/modal-form-exercise/modal-form-exercise.component';
 
 
 @Component({
@@ -21,17 +24,12 @@ import { GlobalUserService } from 'src/app/services/global-user.service';
   templateUrl: './create-routine.component.html',
   styleUrls: ['./create-routine.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterModule, IonicModule]
+  imports: [ReactiveFormsModule, FormsModule, RouterModule, IonicModule, ExerciseCardComponent, SelectedExerciseCardComponent, ModalFormExerciseComponent]
 })
 export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit {
 
-  @ViewChild(IonModal) modal!: IonModal;
-  isModalOpen: boolean = false;
-
-  formToExercise!: FormGroup;
-  sets!: number;
-  repetitions!: number;
-  weight!: number
+  // Modal para formulario de ejercicio
+  @ViewChild(ModalFormExerciseComponent) modal!: ModalFormExerciseComponent;
 
   formRoutine!: FormGroup;
   name!: string;
@@ -110,12 +108,6 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngOnInit() {
-    // Crear formulario del modal
-    this.formToExercise = this.fb.group({
-      sets: [1, [Validators.required, Validators.min(1)]],
-      repetitions: [1, [Validators.required, Validators.min(1)]],
-      weight: [1, [Validators.required, Validators.min(1)]],
-    });
 
     // Crear formulario rutina
     this.formRoutine = this.fb.group({
@@ -141,17 +133,17 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
 
   // Se clickea card abrir formulario modal para seleccionar las opciones relacionadas al ejercicio
   onCardClick(exercise: Exercise): void {
-    this.isModalOpen = true;
+    this.modal.isModalOpen = true;
     this.currentlySelectedExercise = exercise;
   }
 
   // Se envia formulario modal, agregar ejercicio a la lista de seleccionados
-  onCardClickSubmit(sets: number, repetitions: number, weight: number): void {
+  onCardClickSubmit(data: {sets: number, repetitions: number, weight: number}): void {
     let repsExercise: RepsExerciseDTO  = {
       exercise: this.currentlySelectedExercise,
-      repetitions: repetitions,
-      sets: sets,
-      weight: weight,
+      repetitions: data.repetitions,
+      sets: data.sets,
+      weight: data.weight,
     };
     this.selectedExercises.push(repsExercise);
   }
@@ -193,27 +185,9 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
     }
   }
 
-  // Logica del modal
-  cancel() {
-    this.isModalOpen = false;
-    this.modal.dismiss(null, 'cancel');
-  }
-
-  confirm() {
-    if(this.formToExercise.valid){
-      const {sets, repetitions, weight} = this.formToExercise.value;
-      this.modal.dismiss({sets, repetitions, weight}, 'confirm');
-      this.isModalOpen = false;
-    }else {
-      console.log('Formulario de ejercicio no válido'); 
-    }
-  }
-
-  onWillDismiss(event: CustomEvent<OverlayEventDetail>) {
-    if (event.detail.role === 'confirm') {
-      const { sets, repetitions, weight } = event.detail.data;
-      this.onCardClickSubmit(sets, repetitions, weight);
-    }
+  // Metodo para volver atras
+  goBack() {
+    this.router.navigate(['/login-menu']);
   }
 
   // Desuscribirse de todas las subscripciones activas al destruirse el componente

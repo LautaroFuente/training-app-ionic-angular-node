@@ -1,0 +1,8 @@
+<ion-card (click)="onCardClick()">
+  <ion-card-header>
+    <ion-card-title>{{ exercise.name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <img [src]="exercise.imageUrl" alt="{{ exercise.name }}">
+  </ion-card-content>
+</ion-card>

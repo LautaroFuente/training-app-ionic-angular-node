@@ -26,6 +26,7 @@ export class GlobalUserService {
     this.name = "";
     this.email = "";
     this.token = "";
+    this.id = 0;
   }
 
   deleteAccount(): Observable<any> {
