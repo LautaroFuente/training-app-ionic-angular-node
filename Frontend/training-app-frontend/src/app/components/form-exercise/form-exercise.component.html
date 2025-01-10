@@ -1,3 +1,59 @@
-<p>
-  form-exercise works!
-</p>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <ion-item>
+    <ion-label position="floating">Series</ion-label>
+    <ion-input type="number" formControlName="sets"></ion-input>
+  </ion-item>
+
+  @if (form.get('sets')?.touched && form.get('sets')?.invalid) {
+    <div>
+      <ion-text color="danger">
+        @if (form.get('sets')?.hasError('required')) {
+          <p>El campo Series es obligatorio.</p>
+        }
+        @if(form.get('sets')?.hasError('min')) {
+          <p>El campo Series debe ser mayor a 0.</p>
+        }
+      </ion-text>
+    </div>
+  }
+
+  <ion-item>
+    <ion-label position="floating">Repeticiones</ion-label>
+    <ion-input type="number" formControlName="repetitions"></ion-input>
+  </ion-item>
+
+  @if (form.get('repetitions')?.touched && form.get('repetitions')?.invalid) {
+    <div>
+      <ion-text color="danger">
+        @if (form.get('repetitions')?.hasError('required')) {
+          <p>El campo Repeticiones es obligatorio.</p>
+        }
+        @if(form.get('repetitions')?.hasError('min')) {
+          <p>El campo Repeticiones debe ser mayor a 0.</p>
+        }
+      </ion-text>
+    </div>
+  }
+
+  <ion-item>
+    <ion-label position="floating">Peso</ion-label>
+    <ion-input type="number" formControlName="weight"></ion-input>
+  </ion-item>
+
+  @if (form.get('weight')?.touched && form.get('weight')?.invalid) {
+    <div>
+      <ion-text color="danger">
+        @if (form.get('weight')?.hasError('required')) {
+          <p>El campo Peso es obligatorio.</p>
+        }
+        @if(form.get('weight')?.hasError('min')) {
+          <p>El campo Peso debe ser mayor a 0.</p>
+        }
+      </ion-text>
+    </div>
+  }
+
+  <ion-button expand="full" type="submit" [disabled]="form.invalid">Enviar</ion-button>
+  
+</form>

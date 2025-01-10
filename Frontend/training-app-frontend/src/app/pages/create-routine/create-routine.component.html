@@ -43,37 +43,12 @@
   <!---->
   
   <!-- Formulario para la rutina -->
-  <form [formGroup]="formRoutine">
-
-    <ion-item>
-      <ion-label position="floating">Nombre rutina</ion-label>
-      <ion-input type="text" formControlName="name"></ion-input>
-    </ion-item>
-
-    @if (formRoutine.get('name')?.touched && formRoutine.get('name')?.invalid) {
-      <div>
-        <ion-text color="danger">
-          @if (formToExercise.get('name')?.hasError('required')) {
-            <p>El campo nombre es obligatorio.</p>
-          }
-        </ion-text>
-      </div>
-    }
-
-    <ion-item>
-      <ion-label position="floating">Descripcion</ion-label>
-      <ion-input type="text" formControlName="description"></ion-input>
-    </ion-item>
-
-    <ion-button expand="full" type="submit" [disabled]="formToExercise.invalid">Enviar</ion-button>
-    
-  </form>
-
-  <!-- Boton para crear la rutina con los ejercicios seleccionados -->
-  <ion-button (click)="onSubmitFinishRoutine()">Crear rutina</ion-button>
+  <app-form-routine (submitRoutineForm)="onSubmitFinishRoutine($event)"></app-form-routine>
+  <!---->
 
   <!-- Boton para volver atras -->
   <ion-button (click)="goBack()">Volver</ion-button>   
+  <!---->
 
 </ion-content>
 

@@ -4,13 +4,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule, Validators } 
 import {IonModal} from '@ionic/angular/standalone';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { ViewChild } from '@angular/core';
+import { FormExerciseComponent } from '../form-exercise/form-exercise.component';
 
 @Component({
   selector: 'app-modal-form-exercise',
   templateUrl: './modal-form-exercise.component.html',
   styleUrls: ['./modal-form-exercise.component.scss'],
   standalone: true,
-  imports: [IonicModule, ReactiveFormsModule, FormsModule]
+  imports: [IonicModule, ReactiveFormsModule, FormsModule, FormExerciseComponent]
 })
 export class ModalFormExerciseComponent  implements OnInit {
 
@@ -42,15 +43,11 @@ export class ModalFormExerciseComponent  implements OnInit {
     this.modal.dismiss(null, 'cancel');
   }
 
-  confirm() {
-    if(this.formToExercise.valid){
-      const {sets, repetitions, weight} = this.formToExercise.value;
-      this.formSubmitted.emit({ sets, repetitions, weight });
-      this.modal.dismiss({sets, repetitions, weight}, 'confirm');
-      this.isModalOpen = false;
-    }else {
-      console.log('Formulario de ejercicio no válido'); 
-    }
+  confirm(data: {sets: number, repetitions: number, weight: number}) {
+    let { sets, repetitions, weight } = data;
+    this.formSubmitted.emit({ sets, repetitions, weight });
+    this.modal.dismiss({sets, repetitions, weight}, 'confirm');
+    this.isModalOpen = false;
   }
 
   onWillDismiss(event: CustomEvent<OverlayEventDetail>) {

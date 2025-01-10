@@ -9,14 +9,13 @@ import 'swiper/swiper-bundle.css';
 import { RepsExerciseDTO } from 'src/app/interfaces/reps-exercise-dto';
 import { ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
-import {IonModal} from '@ionic/angular/standalone';
-import { OverlayEventDetail } from '@ionic/core/components';
 import { ToastController } from '@ionic/angular';
 import { RoutineService } from 'src/app/services/routine.service';
 import { GlobalUserService } from 'src/app/services/global-user.service';
 import { ExerciseCardComponent } from 'src/app/components/exercise-card/exercise-card.component';
 import { SelectedExerciseCardComponent } from 'src/app/components/selected-exercise-card/selected-exercise-card.component';
 import { ModalFormExerciseComponent } from 'src/app/components/modal-form-exercise/modal-form-exercise.component';
+import { FormRoutineComponent } from 'src/app/components/form-routine/form-routine.component';
 
 
 @Component({
@@ -24,16 +23,12 @@ import { ModalFormExerciseComponent } from 'src/app/components/modal-form-exerci
   templateUrl: './create-routine.component.html',
   styleUrls: ['./create-routine.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterModule, IonicModule, ExerciseCardComponent, SelectedExerciseCardComponent, ModalFormExerciseComponent]
+  imports: [ReactiveFormsModule, FormsModule, RouterModule, IonicModule, ExerciseCardComponent, SelectedExerciseCardComponent, ModalFormExerciseComponent, FormRoutineComponent]
 })
 export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit {
 
   // Modal para formulario de ejercicio
   @ViewChild(ModalFormExerciseComponent) modal!: ModalFormExerciseComponent;
-
-  formRoutine!: FormGroup;
-  name!: string;
-  description: string = '';
 
   swiperToSelect!: Swiper;
   swiperSelected!: Swiper;
@@ -108,13 +103,6 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
   }
 
   ngOnInit() {
-
-    // Crear formulario rutina
-    this.formRoutine = this.fb.group({
-      name: ['', Validators.required],
-      description: [''],
-    });
-
     // Obtener los ejercicios del backend
     this.obtainExercises();
   }
@@ -154,23 +142,21 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
   }
 
   // Se clickea para terminar la rutina y se crea dicha rutina con los ejercicios relacionados, mostrar cartel de aviso
-  onSubmitFinishRoutine(): void {
-    // Si el formulario de la rutina es valido y hay ejercicios agregados
-    if(this.formRoutine.valid){
-      if(this.selectedExercises.length > 0){
+  onSubmitFinishRoutine(data: {name: string, description: string}): void {
+    // Veo si hay ejercicios agregados
+    if(this.selectedExercises.length > 0){
 
-        const {name, description} = this.formRoutine.value;
-        // Obtengo el id del usuario que quiere crear la rutina
-        let userId = this.globalUserService.getId();
+      // Obtengo el id del usuario que quiere crear la rutina
+      let userId = this.globalUserService.getId();
 
-        // Creo la rutina
-        this.routineService.createRoutine(name, description, userId, this.selectedExercises).pipe(takeUntil(this.unsubscribe$)).subscribe(
+      // Creo la rutina
+      this.routineService.createRoutine(data.name, data.description, userId, this.selectedExercises).pipe(takeUntil(this.unsubscribe$)).subscribe(
           (response) => {
-            console.log('ejercicios obtenidos correctamente');
+            console.log('rutina creada correctamente');
             this.presentSuccessCreateRoutine();
           },
           (error) => {
-            console.log('Error al obtener los ejercicios', error);
+            console.log('Error al crear la rutina', error);
             this.presentErrorCreateRoutine();
           }
         );
@@ -179,10 +165,6 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
         console.log('Rutina sin ejercicios');
         this.presentErrorCreateRoutine();
       }
-    }else {
-      console.log('Formulario de rutina no válido'); 
-      this.presentErrorCreateRoutine();
-    }
   }
 
   // Metodo para volver atras

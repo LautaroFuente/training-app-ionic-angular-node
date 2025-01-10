@@ -1,0 +1,25 @@
+<form [formGroup]="formRoutine" (ngSubmit)="onSubmit()">
+
+  <ion-item>
+    <ion-label position="floating">Nombre rutina</ion-label>
+    <ion-input type="text" formControlName="name"></ion-input>
+  </ion-item>
+
+  @if (formRoutine.get('name')?.touched && formRoutine.get('name')?.invalid) {
+    <div>
+      <ion-text color="danger">
+        @if (formRoutine.get('name')?.hasError('required')) {
+          <p>El campo nombre es obligatorio.</p>
+        }
+      </ion-text>
+    </div>
+  }
+
+  <ion-item>
+    <ion-label position="floating">Descripcion</ion-label>
+    <ion-input type="text" formControlName="description"></ion-input>
+  </ion-item>
+
+  <ion-button expand="full" type="submit" [disabled]="formRoutine.invalid">Enviar</ion-button>
+  
+</form>
