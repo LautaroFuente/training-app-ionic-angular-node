@@ -16,6 +16,7 @@ export class LoginMenuComponent {
 
   constructor(private router: Router, private userGlobal: GlobalUserService) { }
 
+  // Metodos para dirigirse a las diferentes secciones de la app
   goToCreateRoutine(): void{
     this.router.navigate(['/create-routine']);
   }
@@ -36,6 +37,7 @@ export class LoginMenuComponent {
     this.router.navigate(['/scheduler-routines']);
   }
 
+  // Metodo para cerrar la sesion del usuario
   closeSession(): void{
     this.userGlobal.logout();
     this.router.navigate(['/home']);

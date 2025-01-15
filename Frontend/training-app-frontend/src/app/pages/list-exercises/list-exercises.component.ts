@@ -4,13 +4,14 @@ import { ExercisesService } from 'src/app/services/exercises.service';
 import { Exercise } from 'src/app/interfaces/Exercise';
 import { Subject, takeUntil } from 'rxjs';
 import { IonicModule } from '@ionic/angular';
+import { ExerciseListComponent } from 'src/app/components/exercise-list/exercise-list.component';
 
 @Component({
   selector: 'app-list-exercises',
   templateUrl: './list-exercises.component.html',
   styleUrls: ['./list-exercises.component.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [IonicModule, ExerciseListComponent],
 })
 export class ListExercisesComponent  implements OnInit, OnDestroy {
 
@@ -25,6 +26,7 @@ export class ListExercisesComponent  implements OnInit, OnDestroy {
     this.obtainExercises();
   }
 
+  // Metodo para obtener los ejercicios
   private obtainExercises(){
     this.exercisesService.getAllExercises().pipe(takeUntil(this.unsubscribe$)).subscribe(
       (response) =>{
@@ -37,8 +39,14 @@ export class ListExercisesComponent  implements OnInit, OnDestroy {
     );
   }
 
+  // Desuscribir al destruir el componente
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
+  }
+
+  // Metodo para volver atras
+  goBack() {
+    this.router.navigate(['/login-menu']);
   }
 }
