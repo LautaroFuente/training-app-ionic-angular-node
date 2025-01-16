@@ -8,7 +8,7 @@ import Swiper from 'swiper';
 import 'swiper/swiper-bundle.css';
 import { RepsExerciseDTO } from 'src/app/interfaces/reps-exercise-dto';
 import { ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule} from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { RoutineService } from 'src/app/services/routine.service';
 import { GlobalUserService } from 'src/app/services/global-user.service';

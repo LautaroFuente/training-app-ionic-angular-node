@@ -1,3 +1,14 @@
-<p>
-  routines-list works!
-</p>
+<ion-list>
+  @for (routine of routines; track routine.id){
+  <ion-item>
+    <!-- Card de presentacion de la rutina -->
+    <app-routine-card [routine]="routine"></app-routine-card>
+  </ion-item>
+} @empty {
+  <ion-item>
+    <ion-label>
+      <h2>No hay rutinas</h2>
+    </ion-label>
+  </ion-item>
+}
+</ion-list>

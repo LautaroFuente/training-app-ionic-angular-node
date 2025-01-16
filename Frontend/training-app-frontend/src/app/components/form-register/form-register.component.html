@@ -1,0 +1,58 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+  <ion-item>
+    <ion-label position="floating">Nombre</ion-label>
+    <ion-input type="name" formControlName="name"></ion-input>
+  </ion-item>
+
+  @if (form.get('name')?.touched && form.get('name')?.invalid) {
+    <div>
+      <ion-text color="danger">
+        @if (form.get('name')?.hasError('required')) {
+          <p>El campo nombre es obligatorio.</p>
+        }
+      </ion-text>
+    </div>
+  }
+
+  <ion-item>
+    <ion-label position="floating">Correo Electrónico</ion-label>
+    <ion-input type="email" formControlName="email"></ion-input>
+  </ion-item>
+
+  @if (form.get('email')?.touched && form.get('email')?.invalid) {
+    <div>
+      <ion-text color="danger">
+        @if (form.get('email')?.hasError('required')) {
+          <p>El campo correo electronico es obligatorio.</p>
+        }
+        @if(form.get('email')?.hasError('email')) {
+          <p>El correo debe tener un formato de correo valido</p>
+        }
+      </ion-text>
+    </div>
+  }
+
+  <ion-item>
+    <ion-label position="floating">Genero</ion-label>
+    <ion-input type="gender" formControlName="gender"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Contraseña</ion-label>
+    <ion-input type="password" formControlName="password"></ion-input>
+  </ion-item>
+
+  @if (form.get('password')?.touched && form.get('password')?.invalid) {
+    <div>
+      <ion-text color="danger">
+        @if (form.get('password')?.hasError('required')) {
+          <p>El campo contraseña es obligatorio.</p>
+        }
+      </ion-text>
+    </div>
+  }
+
+  <ion-button expand="full" type="submit" [disabled]="form.invalid">Enviar</ion-button>
+  
+</form>

@@ -12,6 +12,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 
   constructor(private globalUser: GlobalUserService) { }
 
+  // Interceptor para agregar el token en el encabezado de la solicitud si la url no esta entre las excluidas
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
 
     if (this.isExcludedUrl(req.url)) {

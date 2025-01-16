@@ -17,6 +17,26 @@ export const getAllUserProgress = async (req, res) =>{
     }
 }
 
+export const getDayProgressOfUser = async (req, res) =>{
+    try {
+        const userId = req.params.id;
+        const dayName = req.params.day;
+
+        let data = await userProgress.getDayProgressOfUser(userId, dayName);
+            
+        if(data != null){
+            return res.status(200).json(data);
+        }else{
+            return res.status(500).json({Error:"Error al obtener el recurso en la base de datos"});
+        }
+        
+    } catch (error) {
+        console.log("Error al conseguir el progreso de un usuario en el dia actual en el controlador", error);
+        return res.status(500).json({ message: "Error interno en el servidor" });
+        
+    }
+}
+
 export const addUserProgress = async (req, res) =>{
     try {
 

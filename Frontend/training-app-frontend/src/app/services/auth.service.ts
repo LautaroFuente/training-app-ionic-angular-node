@@ -11,6 +11,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+  // Metodo para autentificar al usuario
   auth(email: string, password: string): Observable<any> {
     const data = {email, password};
     const headers = new HttpHeaders({

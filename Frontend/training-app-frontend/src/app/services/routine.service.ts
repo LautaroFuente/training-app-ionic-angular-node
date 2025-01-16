@@ -8,10 +8,11 @@ import { RepsExerciseDTO } from '../interfaces/reps-exercise-dto';
 })
 export class RoutineService {
 
-  private apiRoutineUrl = '';
+  private apiRoutineUrl = 'http://localhost:3000/server/routine';
 
   constructor(private http: HttpClient) { }
 
+  // Metodo para crear una rutina
   createRoutine(name: string, description: string, userId: number, listExercises: RepsExerciseDTO[]): Observable<any> {
 
     let data = {name, description, userId, listExercises};
@@ -21,5 +22,14 @@ export class RoutineService {
     });
 
     return this.http.post(this.apiRoutineUrl, data, {headers});
+  }
+
+  // Metodo para obtener todas las rutinas
+  getAllRoutines(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.get(this.apiRoutineUrl, {headers});
   }
 }

@@ -15,6 +15,7 @@ export class GlobalUserService {
 
   constructor(private http: HttpClient) {}
 
+  // Metodo para loguear el usuario y guardar durante la sesion activa su informacion
   login(name: string, email: string, token: string, id: number ) {
     this.name = name;
     this.email = email;
@@ -22,6 +23,7 @@ export class GlobalUserService {
     this.id = id;
   }
 
+  // Borrar la info del usuario cuando cierre sesion
   logout() {
     this.name = "";
     this.email = "";
@@ -29,6 +31,7 @@ export class GlobalUserService {
     this.id = 0;
   }
 
+  // Metodo para borrar la cuenta del usuario
   deleteAccount(): Observable<any> {
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',

@@ -5,29 +5,5 @@
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="formRegister" (ngSubmit)="onSubmit()">
-
-    <ion-item>
-      <ion-label position="floating">Nombre</ion-label>
-      <ion-input type="name" formControlName="name"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Correo Electrónico</ion-label>
-      <ion-input type="email" formControlName="email"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Genero</ion-label>
-      <ion-input type="gender" formControlName="gender"></ion-input>
-    </ion-item>
-
-    <ion-item>
-      <ion-label position="floating">Contraseña</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-
-    <ion-button expand="full" type="submit" [disabled]="formRegister.invalid">Enviar</ion-button>
-    
-  </form>
+  <app-form-register [form]="formRegister" (clickSubmit)="onSubmit($event)"></app-form-register>
 </ion-content>

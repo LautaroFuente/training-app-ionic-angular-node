@@ -5,8 +5,25 @@
 </ion-header>
 
 <ion-content>
+  <!-- Contenedor de rutinas -->
+  <div class="swiper-container">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <!-- Lista de rutinas -->
+        <app-routines-list [routines]="routines"></app-routines-list> 
+        <!---->
+      </div>
+    </div>
+    <!-- Paginación -->
+    <div class="swiper-pagination"></div>
+    <!-- Botones de navegación -->
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
+  </div>
+  <!---->
+
   <!-- Lista de rutinas -->
-   <app-routine-list [routines]="routines"> </app-routine-list> 
+   <app-routines-list [routines]="routines"></app-routines-list> 
   <!---->
 
   <!-- Boton para volver atras -->

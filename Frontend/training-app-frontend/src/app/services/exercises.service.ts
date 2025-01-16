@@ -11,6 +11,7 @@ export class ExercisesService {
 
   constructor(private http: HttpClient) { }
 
+  // Obtener todos los ejercicios
   getAllExercises(): Observable<any> {
 
     const headers = new HttpHeaders({

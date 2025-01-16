@@ -1,17 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
-import { IonContent} from '@ionic/angular';
 import { IonicModule } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
 import { RegisterService } from 'src/app/services/register.service';
+import { FormRegisterComponent } from 'src/app/components/form-register/form-register.component';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterModule, IonicModule]
+  imports: [ReactiveFormsModule, FormsModule, RouterModule, IonicModule, FormRegisterComponent]
 })
 export class RegisterComponent  implements OnInit, OnDestroy {
 
@@ -34,22 +34,19 @@ export class RegisterComponent  implements OnInit, OnDestroy {
     })
   }
 
-  onSubmit(): void {
-    if(this.formRegister.valid){
-      const {name, email, gender, password} = this.formRegister.value;
-      this.registerService.register(name, email, gender, password).pipe(takeUntil(this.unsubscribe$)).subscribe(
-        (response) =>{
-          console.log('Usuario registrado correctamente');
-          this.router.navigate(['/login']);
-        },
-        (error) =>{
-          console.log('Error al registrar el usuario', error);
-        });
-    }else {
-      console.log('Formulario no válido'); 
-    }
+  // Metodo para el submit del formulario
+  onSubmit(data: {name: string, email: string, gender: string, password: string}): void {
+    this.registerService.register(data.name, data.email, data.gender, data.password).pipe(takeUntil(this.unsubscribe$)).subscribe(
+      (response) =>{
+        console.log('Usuario registrado correctamente');
+        this.router.navigate(['/login']);
+      },
+      (error) =>{
+        console.log('Error al registrar el usuario', error);
+      });
   }
 
+  // Desuscribir al destruir el componentes
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
