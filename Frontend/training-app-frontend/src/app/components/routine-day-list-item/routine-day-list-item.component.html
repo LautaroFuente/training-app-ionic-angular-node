@@ -1,0 +1,10 @@
+<ion-item>
+  <ion-label>
+    <h2>{{ routine.name }}</h2>
+    <div class="progress-container">
+      <ion-progress-bar [value]="routine.completionPercentage / 100"></ion-progress-bar>
+      <span>{{ routine.completionPercentage }}%</span>
+    </div>
+  </ion-label>
+</ion-item>
+
