@@ -1,1 +1,5 @@
-<!-- for para recorrer las rutinas del dia del usuario y por cada una mostrar el componente routine day list item pasandole la rutina-->
+<ion-list>
+    @for (routine of routines; track routine.routineId) {
+        <app-routine-percentage-completed-of-day-list-item [routine]="routine"></app-routine-percentage-completed-of-day-list-item>
+    }
+</ion-list>

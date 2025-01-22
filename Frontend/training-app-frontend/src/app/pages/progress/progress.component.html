@@ -4,5 +4,11 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <app-routine-percentage-completed-of-day-list> </app-routine-percentage-completed-of-day-list>
+  <!-- Lista de progreso en rutinas -->
+  <app-routine-percentage-completed-of-day-list [routines]="routinesProgress"> </app-routine-percentage-completed-of-day-list>
+  <!---->
+
+  <!-- Boton para volver atras -->
+  <ion-button (click)="goBack()">Volver</ion-button>   
+  <!---->
 </ion-content>
