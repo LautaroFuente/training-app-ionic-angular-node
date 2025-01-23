@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 export const routineExercise = {
     getAllRoutineExercises: async () => {
         try {
-            return prisma.routineExercise.findMany();    
+            return await prisma.routineExercise.findMany();    
         } catch (error) {
             console.log("Error al devolver todas las relaciones rutina/ejercicio en el servicio");
             return null;
@@ -15,7 +15,7 @@ export const routineExercise = {
     addRoutineExercise: async (dataBody) => {
 
         try {
-            return prisma.routineExercise.create({
+            return await prisma.routineExercise.create({
                 data: dataBody
             });    
         } catch (error) {
@@ -26,7 +26,7 @@ export const routineExercise = {
 
     getOneRoutineExercise: async (name) => {
         try { 
-            return prisma.routineExercise.findUnique({
+            return await prisma.routineExercise.findUnique({
                 where:{
                     name:name
                 }
@@ -39,7 +39,7 @@ export const routineExercise = {
 
     deleteOneRoutineExercise: async (id) => {
         try {
-            return prisma.routineExercise.delete({
+            return await prisma.routineExercise.delete({
                 where:{
                     id:id
                 }

@@ -12,7 +12,7 @@ async function hashPassword(password) {
 export const user = {
     getAllUsers: async () => {
         try {
-            return prisma.user.findMany();    
+            return await prisma.user.findMany();    
         } catch (error) {
             console.log("Error al devolver todos los usuarios en el servicio", error);
             return null;
@@ -39,7 +39,7 @@ export const user = {
 
     getOneUser: async (email) => {
         try { 
-            return prisma.user.findUnique({
+            return await prisma.user.findUnique({
                 where:{
                     email:email
                 }
@@ -52,7 +52,7 @@ export const user = {
 
     deleteOneUser: async (id) => {
         try {
-            return prisma.user.delete({
+            return await prisma.user.delete({
                 where:{
                     id:id
                 }

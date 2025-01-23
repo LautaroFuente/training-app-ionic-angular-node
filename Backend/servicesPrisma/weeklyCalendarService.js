@@ -7,7 +7,7 @@ export const weeklyCalendar = {
     addWeeklyCalendar: async (dataBody) => {
 
         try {
-            return prisma.weeklyCalendar.create({
+            return await prisma.weeklyCalendar.create({
                 data: dataBody
             });    
         } catch (error) {
@@ -18,7 +18,7 @@ export const weeklyCalendar = {
 
     getOneWeeklyCalendar: async (id) => {
             try { 
-                return prisma.weeklyCalendar.findUnique({
+                return await prisma.weeklyCalendar.findUnique({
                     where:{
                         id:id
                     }
@@ -31,7 +31,7 @@ export const weeklyCalendar = {
 
     deleteOneWeeklyCalendar: async (id) => {
         try {
-            return prisma.weeklyCalendar.delete({
+            return await prisma.weeklyCalendar.delete({
                 where:{
                     id:id
                 }

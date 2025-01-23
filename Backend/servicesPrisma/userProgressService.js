@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 export const userProgress = {
     getAllUserProgress: async () => {
         try {
-            return prisma.userProgress.findMany();    
+            return await prisma.userProgress.findMany();    
         } catch (error) {
             console.log("Error al devolver todos los progresos de usuarios en el servicio", error);
             return null;
@@ -15,7 +15,7 @@ export const userProgress = {
     addUserProgress: async (dataBody) => {
 
         try {
-            return prisma.userProgress.create({
+            return await prisma.userProgress.create({
                 data: dataBody
             });    
         } catch (error) {
@@ -26,7 +26,7 @@ export const userProgress = {
 
     getOneUserProgress: async (user_id) => {
         try { 
-            return prisma.userProgress.findUnique({
+            return await prisma.userProgress.findUnique({
                 where:{
                     user_id:user_id
                 }
@@ -39,7 +39,7 @@ export const userProgress = {
 
     deleteOneUserProgress: async (id) => {
         try {
-            return prisma.userProgress.delete({
+            return await prisma.userProgress.delete({
                 where:{
                     id:id
                 }

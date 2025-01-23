@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 export const muscleGroup = {
     getAllMuscleGroups: async () => {
         try {
-            return prisma.muscleGroup.findMany();    
+            return await prisma.muscleGroup.findMany();    
         } catch (error) {
             console.log("Error al devolver todos los grupos musculares en el servicio", error);
             return null;
@@ -15,7 +15,7 @@ export const muscleGroup = {
     addMuscleGroup: async (dataBody) => {
 
         try {
-            return prisma.muscleGroup.create({
+            return await prisma.muscleGroup.create({
                 data: dataBody
             });    
         } catch (error) {
@@ -26,7 +26,7 @@ export const muscleGroup = {
 
     getOneMuscleGroup: async (name) => {
         try { 
-            return prisma.muscleGroup.findUnique({
+            return await prisma.muscleGroup.findUnique({
                 where:{
                     name:name
                 }
@@ -39,7 +39,7 @@ export const muscleGroup = {
 
     deleteOneMuscleGroup: async (id) => {
         try {
-            return prisma.muscleGroup.delete({
+            return await prisma.muscleGroup.delete({
                 where:{
                     id:id
                 }

@@ -1,4 +1,5 @@
 import { RoutineSchema, RoutineIdSchema } from "../schemas/Routine.js";
+import { userIdSchema } from "../schemas/User.js";
 import { routineExercise } from "../servicesPrisma/routineExerciseService.js";
 import { routine } from "../servicesPrisma/routineService.js";
 
@@ -14,6 +15,31 @@ export const getAllRoutines = async (req, res) =>{
         
     } catch (error) {
         console.log("Error al conseguir todas las rutinas en el controlador", error);
+        return res.status(500).json({message: "Error interno en el servidor"})
+        
+    }
+}
+
+export const getAllRoutinesFromOneUser = async (req, res) =>{
+    try {
+        const { id } = req.params;
+        const result = userIdSchema.safeParse({id});
+
+        if(result.success){
+            let data = await routine.getAllRoutinesFromOneUser(id);
+            
+            if(data != null){
+                return res.status(200).json(data);
+            }else{
+                return res.status(500).json({Error:"Error al obtener el recurso en la base de datos"});
+            }
+        }else{
+            console.error("Errores de validacion", result.error.errors);
+            return res.status(400).json({ errors: result.error.format() });
+        }
+        
+    } catch (error) {
+        console.log("Error al conseguir todas las rutinas del usuario en el controlador", error);
         return res.status(500).json({message: "Error interno en el servidor"})
         
     }

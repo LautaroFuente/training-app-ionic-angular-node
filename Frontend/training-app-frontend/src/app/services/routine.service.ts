@@ -32,4 +32,13 @@ export class RoutineService {
 
     return this.http.get(this.apiRoutineUrl, {headers});
   }
+
+  // Metodo para obtener todas las rutinas de un usuario
+  getAllRoutinesFromOneUser(userId: number): Observable<any> {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+
+    return this.http.get(`${this.apiRoutineUrl}/user/${userId}`, {headers});
+  }
 }

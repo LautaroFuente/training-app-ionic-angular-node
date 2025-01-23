@@ -5,9 +5,22 @@ const prisma = new PrismaClient()
 export const routine = {
     getAllRoutines: async () => {
         try {
-            return prisma.routine.findMany();    
+            return await prisma.routine.findMany();    
         } catch (error) {
             console.log("Error al devolver todas las rutinas en el servicio", error);
+            return null;
+        }
+    },
+
+    getAllRoutinesFromOneUser: async (id) => {
+        try { 
+            return await prisma.routine.findMany({
+                where:{
+                    userId: id
+                }
+            });   
+        } catch (error) {
+            console.log("Error al buscar una rutina en el servicio", error);
             return null;
         }
     },
@@ -15,7 +28,7 @@ export const routine = {
     addRoutine: async (dataBody) => {
 
         try {
-            return prisma.routine.create({
+            return await prisma.routine.create({
                 data: dataBody
             });    
         } catch (error) {
@@ -26,7 +39,7 @@ export const routine = {
 
     getOneRoutine: async (id) => {
         try { 
-            return prisma.routine.findUnique({
+            return await prisma.routine.findUnique({
                 where:{
                     id:id
                 }
@@ -39,7 +52,7 @@ export const routine = {
 
     deleteOneRoutine: async (id) => {
         try {
-            return prisma.routine.delete({
+            return await prisma.routine.delete({
                 where:{
                     id:id
                 }

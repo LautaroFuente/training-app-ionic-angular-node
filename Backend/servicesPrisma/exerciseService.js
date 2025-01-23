@@ -5,7 +5,7 @@ const prisma = new PrismaClient()
 export const exercise = {
     getAllExercises: async () => {
         try {
-            return prisma.exercise.findMany();    
+            return await prisma.exercise.findMany();    
         } catch (error) {
             console.log("Error al devolver todos los ejercicios en el servicio", error);
             return null;
@@ -15,7 +15,7 @@ export const exercise = {
     addExercise: async (dataBody) => {
 
         try {
-            return prisma.exercise.create({
+            return await prisma.exercise.create({
                 data: dataBody
             });    
         } catch (error) {
@@ -26,7 +26,7 @@ export const exercise = {
 
     getOneExercise: async (name) => {
         try { 
-            return prisma.exercise.findUnique({
+            return await prisma.exercise.findUnique({
                 where:{
                     name:name
                 }
@@ -39,7 +39,7 @@ export const exercise = {
 
     deleteOneExercise: async (id) => {
         try {
-            return prisma.exercise.delete({
+            return await prisma.exercise.delete({
                 where:{
                     id:id
                 }

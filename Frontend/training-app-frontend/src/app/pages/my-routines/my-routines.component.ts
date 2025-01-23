@@ -6,6 +6,7 @@ import { Routine } from 'src/app/interfaces/Routine';
 import { RoutineService } from 'src/app/services/routine.service';
 import { RoutinesListComponent } from 'src/app/components/routines-list/routines-list.component';
 import Swiper from 'swiper';
+import { GlobalUserService } from 'src/app/services/global-user.service';
 
 @Component({
   selector: 'app-my-routines',
@@ -21,7 +22,7 @@ export class MyRoutinesComponent  implements OnInit, OnDestroy, AfterViewInit {
   
     private unsubscribe$ = new Subject<void>();
   
-    constructor(private router: Router, private routineService: RoutineService) { }
+    constructor(private router: Router, private routineService: RoutineService, private globalUser: GlobalUserService) { }
   
     ngOnInit() {
       // Obtener las rutinas del backend
@@ -60,15 +61,19 @@ export class MyRoutinesComponent  implements OnInit, OnDestroy, AfterViewInit {
       });
     }
 
-    // Metodo para obtener los ejercicios
+    // Metodo para obtener las rutinas
     private obtainRoutines(){
-      this.routineService.getAllRoutines().pipe(takeUntil(this.unsubscribe$)).subscribe(
+      // Obtener el id del usuario por medio del servicio correspondiente
+    const userId = this.globalUser.getId();
+
+    // Hacer la peticion por medio del servicio correspondiente
+      this.routineService.getAllRoutinesFromOneUser(userId).pipe(takeUntil(this.unsubscribe$)).subscribe(
         (response) =>{
-          console.log('ejercicios obtenidos correctamente');
+          console.log('rutinas obtenidas correctamente');
           this.routines = response;
         },
         (error) =>{
-          console.log('Error al obtener los ejercicios', error);
+          console.log('Error al obtener las rutinas', error);
         }
       );
     }
