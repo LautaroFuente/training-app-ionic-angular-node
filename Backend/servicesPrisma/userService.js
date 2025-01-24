@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { weeklyCalendar } from './weeklyCalendarService';
 import bcrypt from "bcrypt";
 
 const prisma = new PrismaClient()
@@ -30,6 +31,9 @@ export const user = {
                     password: hashedPassword, 
                 },
             });
+
+            const weeklyCalendarForUser = await weeklyCalendar.addWeeklyCalendar(user.id);
+
             return user;   
         } catch (error) {
             console.log("Error al agregar un usuario en el servicio", error);

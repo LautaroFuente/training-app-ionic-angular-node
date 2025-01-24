@@ -1,27 +1,19 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Calendario Semanal</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <!-- Lista de días de la semana -->
-  <div class="week-container">
-    @for (day of daysOfWeek; track day) {
-      <div class="day-container">
-        <div class="day-header">
-          <h3>{{ day }}</h3>
-          <ion-button (click)="addRoutineToDay(day)">Añadir rutina</ion-button>
-        </div>
-        <div class="routines-list">
-          @for (routine of routines.days; track $index) {
-            <div  class="routine-card">
-              <p>{{ routine.name }}</p>
-            </div>
-          }
+<ion-grid>
+  <ion-row>
+    <ion-col size="12" *ngFor="let day of weekDays">
+      <div 
+        class="day-box"
+        [ngClass]="{'assigned': day.routineId}"
+        (dragover)="onDragOver($event, day)" 
+        (drop)="onDrop($event, day)"
+      >
+        <ion-label>{{ day.name }}</ion-label>
+        <div *ngIf="day.routineId">
+          <app-routine-card [routine]="getRoutineById(day.routineId)"></app-routine-card>
         </div>
       </div>
-    } 
-  </div>
-</ion-content>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
 

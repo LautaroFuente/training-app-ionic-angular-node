@@ -77,8 +77,6 @@ model RoutineExercise {
 model WeeklyCalendar {
   id        Int       @id @default(autoincrement()) // ID de la asignación
   userId    Int       // ID del usuario
-  startDate DateTime  // Fecha de inicio de la semana
-  endDate   DateTime  // Fecha de fin de la semana
   user      User      @relation(fields: [userId], references: [id]) // Relación con User
   days      Day[]     // Relación con los días de la semana
   routines  Routine[] // Relación con Routine (relación opuesta)

@@ -57,3 +57,22 @@ export const getOneWeeklyCalendar = async (req, res) =>{
         
     }
 }
+
+export const getOneWeeklyCalendarFromOneUser = async (req, res) =>{
+    try {
+        const { userId } = req.params;
+
+        let data = await weeklyCalendar.getOneWeeklyCalendarFromOneUser(userId);
+            
+        if(data != null){
+            return res.status(200).json(data);
+        }else{
+            return res.status(500).json({Error:"Error al obtener el recurso en la base de datos"});
+        }
+        
+    } catch (error) {
+        console.log("Error al conseguir un calendario en el controlador", error);
+        return res.status(500).json({ message: "Error interno en el servidor" });
+        
+    }
+}
