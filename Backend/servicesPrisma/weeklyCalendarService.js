@@ -91,4 +91,32 @@ export const weeklyCalendar = {
             return null;
         }
     },
+
+    addRoutineToOneDay: async (dayId) => {
+        try {
+            return await prisma.day.update({
+                where: { id: dayId },
+                data: {
+                  routineId: routineId, 
+                },
+              });   
+        } catch (error) {
+            console.log("Error al asginar una rutina a un dia del calendario en el servicio", error);
+            return null;
+        }
+    },
+
+    removeRoutineFromOneDay: async (dayId) => {
+        try {
+            return await prisma.day.update({
+                where: { id: dayId },
+                data: {
+                  routineId: null,
+                },
+              });   
+        } catch (error) {
+            console.log("Error al eliminar las rutinas de un dia del calendario en el servicio", error);
+            return null;
+        }
+    },
 }

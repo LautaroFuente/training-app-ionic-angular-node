@@ -76,3 +76,46 @@ export const getOneWeeklyCalendarFromOneUser = async (req, res) =>{
         
     }
 }
+
+export const addRoutineToOneDay = async (req, res) =>{
+    try {
+        const { dayid, routineid } = req.params;
+
+        const dayId = parseInt(dayid);
+        const routineId = parseInt(routineid);
+
+        let data = await weeklyCalendar.addRoutineToOneDay(dayId, routineId);
+            
+        if(data != null){
+            return res.status(200).json(data);
+        }else{
+            return res.status(500).json({Error:"Error al obtener el recurso en la base de datos"});
+        }
+        
+    } catch (error) {
+        console.log("Error al asignar una rutina a un dia del calendario en el controlador", error);
+        return res.status(500).json({ message: "Error interno en el servidor" });
+        
+    }
+}
+
+export const removeRoutineFromOneDay = async (req, res) =>{
+    try {
+        const { dayid } = req.params;
+
+        const dayId = parseInt(dayid);
+
+        let data = await weeklyCalendar.removeRoutineFromOneDay(dayId);
+            
+        if(data != null){
+            return res.status(200).json(data);
+        }else{
+            return res.status(500).json({Error:"Error al obtener el recurso en la base de datos"});
+        }
+        
+    } catch (error) {
+        console.log("Error al eliminar las rutinas de un dia del calendario en el controlador", error);
+        return res.status(500).json({ message: "Error interno en el servidor" });
+        
+    }
+}

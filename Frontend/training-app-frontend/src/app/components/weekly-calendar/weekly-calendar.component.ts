@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Routine } from 'src/app/interfaces/Routine';
+import { GlobalUserService } from 'src/app/services/global-user.service';
 import { RoutineService } from 'src/app/services/routine.service';
 import { WeeklyCalendarService } from 'src/app/services/weekly-calendar.service';
 
@@ -8,10 +9,6 @@ import { WeeklyCalendarService } from 'src/app/services/weekly-calendar.service'
 interface RoutinesOfDay {
   name: string;
   routines: Routine[];
-}
-
-interface RoutinesAllDays {
-  days: RoutinesOfDay[];
 }
 
 @Component({
@@ -23,47 +20,35 @@ interface RoutinesAllDays {
 })
 export class WeeklyCalendarComponent implements OnInit{
 
-  weekDays: any[] = []; // Días de la semana para mostrar
-  routines: any[] = []; // Rutinas del usuario
+  weekDays: RoutinesOfDay[] = []; // Días de la semana con su nombre y una lista de sus rutinas para mostrar
 
   constructor(
-    private routineService: RoutineService,
-    private weeklyCalendarService: WeeklyCalendarService
+    private weeklyCalendarService: WeeklyCalendarService,
+    private globalUserService: GlobalUserService
   ) {}
 
   ngOnInit() {
     this.loadWeekDays();
-    this.loadRoutines();
   }
 
-  // Cargar los días de la semana desde el backend
+  // Cargar los días de la semana junto con sus rutinas desde el backend
   loadWeekDays() {
-    this.weeklyCalendarService.getWeeklyCalendar(this.userId).subscribe((data: any) => {
-      this.weekDays = data.days;
+    // Obtener el id del usuario activo
+    const userId = this.globalUserService.getId();
+
+    // Llamar al servicio para hacer la peticion
+    this.weeklyCalendarService.getWeeklyCalendar(userId).subscribe((data: any[]) => {
+      // Transformar los datos para ajustarlos a la estructura de RoutinesOfDay
+      this.weekDays = data.map((day) => {
+        // Si el día tiene una rutina asociada, incluirla en la propiedad "routines"
+        const routines = day.routine ? [day.routine] : [];
+
+        return {
+          name: day.name,
+          routines: routines, // Asignar la rutina si existe, sino es un arreglo vacío
+        };
+      });
     });
-  }
-
-  // Cargar las rutinas del usuario
-  loadRoutines() {
-    this.routineService.getRoutines(this.userId).subscribe((data: any) => {
-      this.routines = data;
-    });
-  }
-
-  // Obtener la rutina por ID
-  getRoutineById(routineId: number) {
-    return this.routines.find(routine => routine.id === routineId);
-  }
-
-  // Función para permitir el arrastre de rutinas
-  onDragOver(event: any, day: any) {
-    event.preventDefault(); // Necesario para permitir la acción de drop
-  }
-
-  // Función que maneja el evento de soltar (drop)
-  onDrop(event: any, day: any) {
-    const routineId = event.dataTransfer.getData('routineId');
-    this.assignRoutineToDay(day.id, routineId);
   }
 
   // Asignar una rutina a un día
