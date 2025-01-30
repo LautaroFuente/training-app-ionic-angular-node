@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { Routine } from 'src/app/interfaces/Routine';
 import { GlobalUserService } from 'src/app/services/global-user.service';
-import { RoutineService } from 'src/app/services/routine.service';
 import { WeeklyCalendarService } from 'src/app/services/weekly-calendar.service';
+import { RoutineCardComponent } from "../routine-card/routine-card.component";
+import { CdkDropList, CdkDragDrop } from '@angular/cdk/drag-drop';
 
 // Interface para cada dia y las rutinas que contiene
 interface RoutinesOfDay {
@@ -16,7 +17,7 @@ interface RoutinesOfDay {
   templateUrl: './weekly-calendar.component.html',
   styleUrls: ['./weekly-calendar.component.scss'],
   standalone: true,
-  imports: [ IonicModule ],
+  imports: [IonicModule, RoutineCardComponent, CdkDropList],
 })
 export class WeeklyCalendarComponent implements OnInit{
 
@@ -63,6 +64,15 @@ export class WeeklyCalendarComponent implements OnInit{
     this.weeklyCalendarService.removeRoutineFromDay(dayId).subscribe(() => {
       this.loadWeekDays(); // Recargar los días con las rutinas actualizadas
     });
+  }
+
+  // Evento de cuando se suelta una rutina en un contenedor de un dia para asignarsele
+  onDrop(event: CdkDragDrop<any>) {
+    const droppedRoutine = event.item.data; // Obtenemos la rutina arrastrada
+    const targetDay = event.container.data; // Obtenemos el día de la semana al que se soltó
+
+    // Asignamos la rutina al día correspondiente
+    console.log(`Rutina ${droppedRoutine} asignada a ${targetDay}`);
   }
 }
 

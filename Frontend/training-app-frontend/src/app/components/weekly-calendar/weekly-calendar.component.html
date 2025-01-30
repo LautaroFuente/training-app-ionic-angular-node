@@ -1,19 +1,32 @@
 <ion-grid>
   <ion-row>
-    <ion-col size="12" *ngFor="let day of weekDays">
-      <div 
-        class="day-box"
-        [ngClass]="{'assigned': day.routineId}"
-        (dragover)="onDragOver($event, day)" 
-        (drop)="onDrop($event, day)"
-      >
-        <ion-label>{{ day.name }}</ion-label>
-        <div *ngIf="day.routineId">
-          <app-routine-card [routine]="getRoutineById(day.routineId)"></app-routine-card>
+    @for (day of weekDays; track day.name) {
+      <ion-col size="12">
+        <div 
+          class="day-box"
+          cdkDropList (cdkDropListDropped)="onDrop($event)" [cdkDropListData]="day" [id]="day.name"
+        >
+          <ion-label>{{ day.name }}</ion-label>
+
+          <!-- Botón para eliminar rutinas del día -->
+          <ion-button fill="clear" color="danger" (click)="removeRoutineFromDay(1)">
+            <ion-icon name="close-circle"></ion-icon>
+          </ion-button>
+
+          @if (day.routines.length > 0) {
+            <div>
+              @for (routine of day.routines; track routine.id) {
+                <app-routine-card [routine]="routine"></app-routine-card>
+              }
+            </div>
+          }
         </div>
-      </div>
-    </ion-col>
+      </ion-col>
+    }
   </ion-row>
 </ion-grid>
 
+<!-- Crear interface de day, que el metodo que carga los diasm traiga la info completa de un dia y sus rutinas
+      cambiaria la interface de lo que se guarda en weekdays y asi siempre tendria a mano la info del dia
+      como su id para los metodos de agregarle o quitarle una rutina-->
 

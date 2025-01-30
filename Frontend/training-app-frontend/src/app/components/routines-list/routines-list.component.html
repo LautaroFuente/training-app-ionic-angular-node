@@ -2,7 +2,7 @@
   @for (routine of routines; track routine.id){
   <ion-item>
     <!-- Card de presentacion de la rutina -->
-    <app-routine-card [routine]="routine"></app-routine-card>
+    <app-routine-card [routine]="routine" cdkDrag [cdkDragData]="routine"></app-routine-card>
   </ion-item>
 } @empty {
   <ion-item>
