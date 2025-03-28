@@ -1,5 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, FormsModule, Validators } from '@angular/forms';
+import { Component, OnInit, OnDestroy, inject } from '@angular/core';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  FormsModule,
+  Validators,
+} from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { Subject, takeUntil } from 'rxjs';
@@ -11,10 +17,15 @@ import { FormRegisterComponent } from 'src/app/components/form-register/form-reg
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterModule, IonicModule, FormRegisterComponent]
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule,
+    IonicModule,
+    FormRegisterComponent,
+  ],
 })
-export class RegisterComponent  implements OnInit, OnDestroy {
-
+export class RegisterComponent implements OnInit, OnDestroy {
   formRegister!: FormGroup;
   name!: string;
   email!: string;
@@ -23,7 +34,9 @@ export class RegisterComponent  implements OnInit, OnDestroy {
 
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private router: Router, private fb: FormBuilder, private registerService: RegisterService) { }
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  private registerService = inject(RegisterService);
 
   ngOnInit() {
     this.formRegister = this.fb.group({
@@ -31,19 +44,28 @@ export class RegisterComponent  implements OnInit, OnDestroy {
       email: ['', [Validators.required, Validators.email]],
       gender: ['', Validators.required],
       password: ['', Validators.required],
-    })
+    });
   }
 
   // Metodo para el submit del formulario
-  onSubmit(data: {name: string, email: string, gender: string, password: string}): void {
-    this.registerService.register(data.name, data.email, data.gender, data.password).pipe(takeUntil(this.unsubscribe$)).subscribe(
-      (response) =>{
-        console.log('Usuario registrado correctamente');
-        this.router.navigate(['/login']);
-      },
-      (error) =>{
-        console.log('Error al registrar el usuario', error);
-      });
+  onSubmit(data: {
+    name: string;
+    email: string;
+    gender: string;
+    password: string;
+  }): void {
+    this.registerService
+      .register(data.name, data.email, data.gender, data.password)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (response) => {
+          console.log('Usuario registrado correctamente');
+          this.router.navigate(['/login']);
+        },
+        (error) => {
+          console.log('Error al registrar el usuario', error);
+        }
+      );
   }
 
   // Desuscribir al destruir el componentes

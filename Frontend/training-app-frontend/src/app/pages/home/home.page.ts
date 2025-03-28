@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -12,13 +12,13 @@ import { Router } from '@angular/router';
   imports: [IonContent, RouterModule, IonicModule],
 })
 export class HomePage {
-  constructor(private router: Router) {}
+  private router = inject(Router);
 
-  goToRegister(): void{
+  goToRegister(): void {
     this.router.navigate(['/register']);
   }
 
-  goToLogin(): void{
+  goToLogin(): void {
     this.router.navigate(['/login']);
   }
 }
