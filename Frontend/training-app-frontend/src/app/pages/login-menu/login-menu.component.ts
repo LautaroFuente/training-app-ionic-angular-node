@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { IonContent } from '@ionic/angular/standalone';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
@@ -13,34 +13,32 @@ import { GlobalUserService } from 'src/app/services/global-user.service';
   imports: [IonContent, RouterModule, IonicModule],
 })
 export class LoginMenuComponent {
-
-  constructor(private router: Router, private userGlobal: GlobalUserService) { }
+  constructor(private router: Router, private userGlobal: GlobalUserService) {}
 
   // Metodos para dirigirse a las diferentes secciones de la app
-  goToCreateRoutine(): void{
+  goToCreateRoutine(): void {
     this.router.navigate(['/create-routine']);
   }
 
-  goToMyRoutines(): void{
+  goToMyRoutines(): void {
     this.router.navigate(['/my-routines']);
   }
 
-  goToExercises(): void{
+  goToExercises(): void {
     this.router.navigate(['/list-exercises']);
   }
 
-  goToMyProgress(): void{
+  goToMyProgress(): void {
     this.router.navigate(['/progress']);
   }
 
-  goToCalendary(): void{
+  goToCalendary(): void {
     this.router.navigate(['/scheduler-routines']);
   }
 
   // Metodo para cerrar la sesion del usuario
-  closeSession(): void{
+  closeSession(): void {
     this.userGlobal.logout();
     this.router.navigate(['/home']);
   }
-
 }

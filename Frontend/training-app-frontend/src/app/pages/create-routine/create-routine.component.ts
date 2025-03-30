@@ -1,14 +1,19 @@
-import { Component, OnInit, OnDestroy, AfterViewInit, inject } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
+  inject,
+} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { ExercisesService } from 'src/app/services/exercises.service';
 import { IonicModule } from '@ionic/angular';
 import { Exercise } from 'src/app/interfaces/Exercise';
 import { Subject, takeUntil } from 'rxjs';
 import Swiper from 'swiper';
-import 'swiper/swiper-bundle.css';
 import { RepsExerciseDTO } from 'src/app/interfaces/reps-exercise-dto';
 import { ViewChild } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, FormsModule} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { RoutineService } from 'src/app/services/routine.service';
 import { GlobalUserService } from 'src/app/services/global-user.service';
@@ -17,16 +22,25 @@ import { SelectedExerciseCardComponent } from 'src/app/components/selected-exerc
 import { ModalFormExerciseComponent } from 'src/app/components/modal-form-exercise/modal-form-exercise.component';
 import { FormRoutineComponent } from 'src/app/components/form-routine/form-routine.component';
 
-
 @Component({
   selector: 'app-create-routine',
   templateUrl: './create-routine.component.html',
   styleUrls: ['./create-routine.component.scss'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, RouterModule, IonicModule, ExerciseCardComponent, SelectedExerciseCardComponent, ModalFormExerciseComponent, FormRoutineComponent]
+  imports: [
+    ReactiveFormsModule,
+    FormsModule,
+    RouterModule,
+    IonicModule,
+    ExerciseCardComponent,
+    SelectedExerciseCardComponent,
+    ModalFormExerciseComponent,
+    FormRoutineComponent,
+  ],
 })
-export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit {
-
+export class CreateRoutineComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
   // Modal para formulario de ejercicio
   @ViewChild(ModalFormExerciseComponent) modal!: ModalFormExerciseComponent;
 
@@ -39,7 +53,11 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
 
   private unsubscribe$ = new Subject<void>();
 
-  constructor(private router: Router, private exercisesService: ExercisesService, private fb: FormBuilder) { }
+  constructor(
+    private router: Router,
+    private exercisesService: ExercisesService,
+    private fb: FormBuilder
+  ) {}
   toastController = inject(ToastController);
   routineService = inject(RoutineService);
   globalUserService = inject(GlobalUserService);
@@ -107,16 +125,19 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
     this.obtainExercises();
   }
 
-  private obtainExercises(){
-    this.exercisesService.getAllExercises().pipe(takeUntil(this.unsubscribe$)).subscribe(
-      (response) =>{
-        console.log('ejercicios obtenidos correctamente');
-        this.exercises = response;
-      },
-      (error) =>{
-        console.log('Error al obtener los ejercicios', error);
-      }
-    );
+  private obtainExercises() {
+    this.exercisesService
+      .getAllExercises()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(
+        (response) => {
+          console.log('ejercicios obtenidos correctamente');
+          this.exercises = response;
+        },
+        (error) => {
+          console.log('Error al obtener los ejercicios', error);
+        }
+      );
   }
 
   // Se clickea card abrir formulario modal para seleccionar las opciones relacionadas al ejercicio
@@ -126,8 +147,12 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
   }
 
   // Se envia formulario modal, agregar ejercicio a la lista de seleccionados
-  onCardClickSubmit(data: {sets: number, repetitions: number, weight: number}): void {
-    let repsExercise: RepsExerciseDTO  = {
+  onCardClickSubmit(data: {
+    sets: number;
+    repetitions: number;
+    weight: number;
+  }): void {
+    let repsExercise: RepsExerciseDTO = {
       exercise: this.currentlySelectedExercise,
       repetitions: data.repetitions,
       sets: data.sets,
@@ -138,19 +163,28 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
 
   // Se clickea boton de borrar de una card, eliminar dicho ejercicio de la lista de seleccionados
   onDeleteCardClick(repsExercise: RepsExerciseDTO): void {
-    this.selectedExercises = this.selectedExercises.filter((exercise) => exercise.exercise.id != repsExercise.exercise.id);
+    this.selectedExercises = this.selectedExercises.filter(
+      (exercise) => exercise.exercise.id != repsExercise.exercise.id
+    );
   }
 
   // Se clickea para terminar la rutina y se crea dicha rutina con los ejercicios relacionados, mostrar cartel de aviso
-  onSubmitFinishRoutine(data: {name: string, description: string}): void {
+  onSubmitFinishRoutine(data: { name: string; description: string }): void {
     // Veo si hay ejercicios agregados
-    if(this.selectedExercises.length > 0){
-
+    if (this.selectedExercises.length > 0) {
       // Obtengo el id del usuario que quiere crear la rutina
       let userId = this.globalUserService.getId();
 
       // Creo la rutina
-      this.routineService.createRoutine(data.name, data.description, userId, this.selectedExercises).pipe(takeUntil(this.unsubscribe$)).subscribe(
+      this.routineService
+        .createRoutine(
+          data.name,
+          data.description,
+          userId,
+          this.selectedExercises
+        )
+        .pipe(takeUntil(this.unsubscribe$))
+        .subscribe(
           (response) => {
             console.log('rutina creada correctamente');
             this.presentSuccessCreateRoutine();
@@ -160,11 +194,10 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
             this.presentErrorCreateRoutine();
           }
         );
-      
-      }else{
-        console.log('Rutina sin ejercicios');
-        this.presentErrorCreateRoutine();
-      }
+    } else {
+      console.log('Rutina sin ejercicios');
+      this.presentErrorCreateRoutine();
+    }
   }
 
   // Metodo para volver atras
@@ -192,13 +225,13 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
           role: 'cancel',
           handler: () => {
             console.log('Toast cerrado');
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     toast.present();
   }
-  
+
   async presentErrorCreateRoutine() {
     const toast = await this.toastController.create({
       message: '¡Hubo un error al crear la rutina!',
@@ -212,11 +245,10 @@ export class CreateRoutineComponent  implements OnInit, OnDestroy, AfterViewInit
           role: 'cancel',
           handler: () => {
             console.log('Toast cerrado');
-          }
-        }
-      ]
+          },
+        },
+      ],
     });
     toast.present();
   }
-  
 }
