@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { IonContent } from '@ionic/angular/standalone';
 import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -9,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonContent, RouterModule, IonicModule],
+  imports: [RouterModule, IonicModule],
 })
 export class HomePage {
   private router = inject(Router);
