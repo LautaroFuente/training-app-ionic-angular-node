@@ -6,15 +6,15 @@ ion-header {
   }
 }
 
-ion-content {
+ion-content::part(scroll) {
   display: flex;
-  justify-content: center; // Centra verticalmente los botones
-  align-items: center; // Centra horizontalmente los botones
-  flex-direction: column; // Coloca los elementos en columna
-  padding: 20px; // Agrega un margen en los bordes laterales
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px;
+}
 
-  ion-button {
-    width: 80%; // Ajusta el ancho del botón
-    margin: 10px 0; // Espaciado entre los botones
-  }
+ion-content::part(scroll) ion-button {
+  width: 50%;
+  margin: 10px 0;
 }
