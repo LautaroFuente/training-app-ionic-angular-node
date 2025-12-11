@@ -3,30 +3,45 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-export let connection;
+const MAX_RETRIES = 10;
+const RETRY_DELAY = 2000; // 2 segundos
 
-export async function connect() {
+async function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function createPoolWithRetry() {
+  let retries = 0;
+
+  while (retries < MAX_RETRIES) {
     try {
-      connection = await mysql.createConnection({
+      const pool = mysql.createPool({
         host: process.env.DB_HOST,
         user: process.env.DB_USER,
-        port: process.env.DB_PORT || 3306,
         password: process.env.DB_PASSWORD,
         database: process.env.DB_NAME,
+        port: process.env.DB_PORT || 3306,
+        waitForConnections: true,
+        connectionLimit: 10,
+        queueLimit: 0,
       });
-      console.log("Se establecio conexion con la base de datos");
+
+      // Probar la conexión
+      await pool.query("SELECT 1");
+      console.log("✅ Conexión a MySQL establecida correctamente");
+      return pool;
     } catch (err) {
-      console.error("Surgio un error al establecer conexion:", err);
+      retries++;
+      console.log(
+        `⏳ MySQL no está listo aún... reintento ${retries}/${MAX_RETRIES}`
+      );
+      await wait(RETRY_DELAY);
     }
   }
-  
-  export async function closeConnection() {
-    if (connection) {
-      try {
-        await connection.end();
-        console.log("Conexion cerrada con la base de datos");
-      } catch (err) {
-        console.error("Surgio un error al cerrar la conexion:", err);
-      }
-    }
-  }
+
+  console.error("❌ No se pudo conectar a MySQL después de varios intentos");
+  process.exit(1);
+}
+
+const pool = await createPoolWithRetry();
+export default pool;
