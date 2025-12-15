@@ -27,8 +27,8 @@ COPY --from=builder /app/server.js ./server.js
 COPY --from=builder /app/*.js ./   # por si tenés más archivos .js
 COPY --from=builder /app/*.json ./ # package.json por ejemplo
 
-ENV NODE_ENV=production
+COPY entrypoint.sh ./entrypoint.sh
+RUN chmod +x entrypoint.sh
 
 EXPOSE 3000
-
-CMD ["npm", "start"]
+CMD ["./entrypoint.sh"]
