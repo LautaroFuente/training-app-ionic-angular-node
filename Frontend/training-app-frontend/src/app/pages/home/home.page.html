@@ -1,9 +1,29 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
-    <ion-title>Mi app de entrenamiento</ion-title>
+    <ion-title class="app-title">Training App</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <ion-button expand="block" (click)="goToRegister()">Registrarse</ion-button>
-  <ion-button expand="block" (click)="goToLogin()">Iniciar sesion</ion-button>
+
+<ion-content [fullscreen]="true" class="home-content">
+  <div class="home-container">
+    <div class="hero">
+      <h1>Train smarter</h1>
+      <p>Organize your routines and track your progress</p>
+    </div>
+
+    <div class="actions">
+      <ion-button expand="block" class="primary-btn" (click)="goToRegister()">
+        Create account
+      </ion-button>
+
+      <ion-button
+        expand="block"
+        fill="outline"
+        class="secondary-btn"
+        (click)="goToLogin()"
+      >
+        Sign in
+      </ion-button>
+    </div>
+  </div>
 </ion-content>

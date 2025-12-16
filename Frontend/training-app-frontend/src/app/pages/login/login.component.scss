@@ -1,0 +1,39 @@
+.login-content {
+  --background: #0f172a;
+}
+
+ion-toolbar {
+  --background: transparent;
+  --border-width: 0;
+}
+
+.login-container {
+  height: 100%;
+  padding: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  background: #1f2933;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  h2 {
+    color: #e5e7eb;
+    font-size: 1.6rem;
+    font-weight: 600;
+  }
+
+  p {
+    color: #9ca3af;
+    font-size: 0.95rem;
+    margin-bottom: 8px;
+  }
+}

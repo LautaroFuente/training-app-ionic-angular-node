@@ -68,6 +68,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
       );
   }
 
+  // Volver
+  goBack(): void {
+    this.router.navigate(['/home']);
+  }
+
   // Desuscribir al destruir el componentes
   ngOnDestroy(): void {
     this.unsubscribe$.next();
