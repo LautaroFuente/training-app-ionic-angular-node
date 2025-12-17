@@ -1,14 +1,14 @@
-<ion-list>
-  @for (exercise of exercises; track exercise.id){
-  <ion-item>
-    <!-- Card de presentacion del ejercicio -->
-    <app-exercise-card [exercise]="exercise" ></app-exercise-card>
+<ion-list class="exercise-list">
+  @for (exercise of exercises; track exercise.id) {
+  <ion-item lines="none">
+    <app-exercise-card [exercise]="exercise"></app-exercise-card>
   </ion-item>
-} @empty {
-  <ion-item>
+  } @empty {
+  <ion-item lines="none" class="empty-state">
     <ion-label>
       <h2>No hay ejercicios</h2>
+      <p>Pronto agregaremos más 💪</p>
     </ion-label>
   </ion-item>
-}
+  }
 </ion-list>

@@ -1,0 +1,23 @@
+ion-card {
+  width: 280px;
+  background: linear-gradient(145deg, #020617, #020617);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+ion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.6);
+}
+
+ion-card-title {
+  color: #e5e7eb;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+ion-card-content {
+  color: #9ca3af;
+  font-size: 0.85rem;
+}

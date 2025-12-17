@@ -1,0 +1,28 @@
+.progress-card {
+  background: linear-gradient(145deg, #020617, #020617);
+  border-radius: 14px;
+  padding: 16px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+ion-label h2 {
+  color: #e5e7eb;
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  color: #9ca3af;
+  margin-bottom: 10px;
+}
+
+ion-progress-bar {
+  --background: #1e293b;
+  --progress-background: #22c55e;
+  height: 6px;
+  border-radius: 6px;
+}

@@ -1,16 +1,13 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()"> Volver </ion-button>
+    </ion-buttons>
+
     <ion-title>Ejercicios</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <!-- Lista de ejercicios -->
-   <app-exercise-list [exercises]="exercises"> </app-exercise-list> 
-  <!---->
-
-  <!-- Boton para volver atras -->
-  <ion-button (click)="goBack()">Volver</ion-button>   
-  <!---->
-  
+<ion-content class="list-exercises-content">
+  <app-exercise-list [exercises]="exercises"></app-exercise-list>
 </ion-content>

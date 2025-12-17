@@ -1,0 +1,25 @@
+.exercise-list {
+  background: transparent;
+
+  ion-item {
+    --background: transparent;
+    padding: 0;
+    margin-bottom: 12px;
+  }
+}
+
+.empty-state {
+  text-align: center;
+  margin-top: 48px;
+
+  h2 {
+    color: #e5e7eb;
+    font-size: 1.2rem;
+    margin-bottom: 4px;
+  }
+
+  p {
+    color: #9ca3af;
+    font-size: 0.9rem;
+  }
+}

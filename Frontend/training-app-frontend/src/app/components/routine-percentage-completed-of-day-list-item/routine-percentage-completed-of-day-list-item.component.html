@@ -1,8 +1,17 @@
-<ion-item>
+<ion-item lines="none" class="progress-card">
   <ion-label>
     <h2>{{ routine.routineName }}</h2>
-    <p>Total de ejercicios: {{ routine.totalExercises }}</p>
-    <p>Ejercicios completados: {{ routine.completedExercises }}</p>
-    <p>Progreso: {{ routine.completionPercentage }}%</p>
+
+    <div class="stats">
+      <span
+        >{{ routine.completedExercises }} /
+        {{ routine.totalExercises }} ejercicios</span
+      >
+      <span>{{ routine.completionPercentage }}%</span>
+    </div>
+
+    <ion-progress-bar
+      [value]="routine.completionPercentage / 100"
+    ></ion-progress-bar>
   </ion-label>
 </ion-item>

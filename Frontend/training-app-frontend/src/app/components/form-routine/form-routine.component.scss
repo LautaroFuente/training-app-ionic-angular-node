@@ -1,0 +1,31 @@
+form {
+  background: #1f2933;
+  border-radius: 16px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+ion-item {
+  --background: #111827;
+  --border-radius: 12px;
+}
+
+ion-label {
+  color: #9ca3af;
+}
+
+ion-input {
+  color: #e5e7eb;
+}
+
+ion-button {
+  height: 48px;
+  border-radius: 12px;
+  font-weight: 600;
+  margin-top: 8px;
+
+  --background: #22c55e;
+  --color: #022c22;
+}

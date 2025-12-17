@@ -1,2 +1,47 @@
+.calendar-grid {
+  margin-bottom: 24px;
+}
 
-  
+.day-card {
+  background: #020617;
+  border-radius: 14px;
+  padding: 12px;
+  min-height: 140px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.day-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  ion-label {
+    font-weight: 600;
+    color: #e5e7eb;
+  }
+}
+
+.routines-container {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.empty-day {
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+  margin-top: 12px;
+}
+
+.cdk-drag-preview {
+  opacity: 0.9;
+  transform: rotate(2deg);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}

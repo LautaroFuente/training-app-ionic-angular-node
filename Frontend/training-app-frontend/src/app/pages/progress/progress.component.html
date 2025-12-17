@@ -1,14 +1,15 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Mi Progreso</ion-title>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">Volver</ion-button>
+    </ion-buttons>
+
+    <ion-title>Mi progreso</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <!-- Lista de progreso en rutinas -->
-  <app-routine-percentage-completed-of-day-list [routines]="routinesProgress"> </app-routine-percentage-completed-of-day-list>
-  <!---->
 
-  <!-- Boton para volver atras -->
-  <ion-button (click)="goBack()">Volver</ion-button>   
-  <!---->
+<ion-content class="progress-content">
+  <app-routine-percentage-completed-of-day-list
+    [routines]="routinesProgress"
+  ></app-routine-percentage-completed-of-day-list>
 </ion-content>

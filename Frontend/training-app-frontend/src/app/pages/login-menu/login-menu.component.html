@@ -1,13 +1,42 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
-    <ion-title>Mi app de entrenamiento</ion-title>
+    <ion-title>Dashboard</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button fill="clear" color="danger" (click)="closeSession()">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
-<ion-content [fullscreen]="true">
-  <ion-button expand="block" (click)="goToCreateRoutine()">Crear Rutina</ion-button>
-  <ion-button expand="block" (click)="goToMyRoutines()">Mis Rutinas</ion-button>
-  <ion-button expand="block" (click)="goToExercises()">Ver Ejercicios</ion-button>
-  <ion-button expand="block" (click)="goToMyProgress()">Mi Progreso</ion-button>
-  <ion-button expand="block" (click)="goToCalendary()">Ver Calendario</ion-button>
-  <ion-button expand="block" (click)="closeSession()">Cerrar Sesion</ion-button>
+
+<ion-content class="menu-content">
+  <div class="menu-container">
+    <div class="menu-grid">
+      <button class="menu-card" (click)="goToCreateRoutine()">
+        <ion-icon name="add-circle-outline"></ion-icon>
+        <span>Create routine</span>
+      </button>
+
+      <button class="menu-card" (click)="goToMyRoutines()">
+        <ion-icon name="barbell-outline"></ion-icon>
+        <span>My routines</span>
+      </button>
+
+      <button class="menu-card" (click)="goToExercises()">
+        <ion-icon name="fitness-outline"></ion-icon>
+        <span>Exercises</span>
+      </button>
+
+      <button class="menu-card" (click)="goToMyProgress()">
+        <ion-icon name="stats-chart-outline"></ion-icon>
+        <span>Progress</span>
+      </button>
+
+      <button class="menu-card" (click)="goToCalendary()">
+        <ion-icon name="calendar-outline"></ion-icon>
+        <span>Calendar</span>
+      </button>
+    </div>
+  </div>
 </ion-content>

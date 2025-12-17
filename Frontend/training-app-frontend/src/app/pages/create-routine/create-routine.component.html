@@ -1,54 +1,66 @@
-<ion-header>
+<ion-header translucent>
   <ion-toolbar>
-    <ion-title>Crear Rutina</ion-title>
+    <ion-buttons slot="start">
+      <ion-button fill="clear" (click)="goBack()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-title>Create routine</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <!-- Contenedor de ejercicios para seleccionar -->
-  <div class="swiper-container-to-select">
-    <div class="swiper-wrapper">
-      @for (exercise of exercises; track exercise.id) {
+
+<ion-content class="create-content">
+  <!-- Select exercises -->
+  <section class="section">
+    <h3>Select exercises</h3>
+
+    <div class="swiper-container-to-select">
+      <div class="swiper-wrapper">
+        @for (exercise of exercises; track exercise.id) {
         <div class="swiper-slide">
-          <app-exercise-card [exercise]="exercise" (cardClick)="onCardClick($event)" ></app-exercise-card>
+          <app-exercise-card
+            [exercise]="exercise"
+            (cardClick)="onCardClick($event)"
+          >
+          </app-exercise-card>
         </div>
-      }
-    </div>
-    <!-- Paginación -->
-    <div class="swiper-pagination swiper-pagination-to-select"></div>
-    <!-- Botones de navegación -->
-    <div class="swiper-button-next swiper-to-select-button-next"></div>
-    <div class="swiper-button-prev swiper-to-select-button-prev"></div>
-  </div>
-  <!---->
+        }
+      </div>
 
-  <!-- Contenedor de ejercicios seleccionados -->
-  <div class="swiper-container-selected">
-    <div class="swiper-wrapper">
-      @for (repsExercise of selectedExercises; track repsExercise.exercise.id) {
+      <div class="swiper-pagination swiper-pagination-to-select"></div>
+    </div>
+  </section>
+
+  <!-- Selected exercises -->
+  <section class="section">
+    <h3>Selected exercises</h3>
+
+    <div class="swiper-container-selected">
+      <div class="swiper-wrapper">
+        @for (repsExercise of selectedExercises; track repsExercise.exercise.id)
+        {
         <div class="swiper-slide">
-          <app-selected-exercise-card [repsExercise]="repsExercise" (cardClick)="onDeleteCardClick($event)"></app-selected-exercise-card>
+          <app-selected-exercise-card
+            [repsExercise]="repsExercise"
+            (cardClick)="onDeleteCardClick($event)"
+          >
+          </app-selected-exercise-card>
         </div>
-      }
+        }
+      </div>
+
+      <div class="swiper-pagination swiper-selected-pagination"></div>
     </div>
-    <!-- Paginación -->
-    <div class="swiper-pagination swiper-selected-pagination"></div>
-    <!-- Botones de navegación -->
-    <div class="swiper-button-next swiper-selected-button-next"></div>
-    <div class="swiper-button-prev swiper-selected-button-prev"></div>
-  </div>
-  <!---->
+  </section>
 
-  <!-- Formulario modal de repeticiones, series y peso relacionado al ejercicio -->
-  <app-modal-form-exercise (formSubmitted)="onCardClickSubmit($event)"></app-modal-form-exercise>
-  <!---->
-  
-  <!-- Formulario para la rutina -->
-  <app-form-routine (submitRoutineForm)="onSubmitFinishRoutine($event)"></app-form-routine>
-  <!---->
+  <!-- Routine form -->
+  <section class="section">
+    <h3>Routine details</h3>
+    <app-form-routine (submitRoutineForm)="onSubmitFinishRoutine($event)">
+    </app-form-routine>
+  </section>
 
-  <!-- Boton para volver atras -->
-  <ion-button (click)="goBack()">Volver</ion-button>   
-  <!---->
-
+  <app-modal-form-exercise (formSubmitted)="onCardClickSubmit($event)">
+  </app-modal-form-exercise>
 </ion-content>
-

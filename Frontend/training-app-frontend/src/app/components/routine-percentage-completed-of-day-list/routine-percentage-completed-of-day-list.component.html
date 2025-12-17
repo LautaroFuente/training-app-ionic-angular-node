@@ -1,5 +1,14 @@
-<ion-list>
-    @for (routine of routines; track routine.routineId) {
-        <app-routine-percentage-completed-of-day-list-item [routine]="routine"></app-routine-percentage-completed-of-day-list-item>
-    }
+<ion-list class="progress-list">
+  @for (routine of routines; track routine.routineId) {
+  <app-routine-percentage-completed-of-day-list-item
+    [routine]="routine"
+  ></app-routine-percentage-completed-of-day-list-item>
+  } @empty {
+  <ion-item lines="none" class="empty-state">
+    <ion-label>
+      <h2>No hay rutinas hoy</h2>
+      <p>Disfrutá tu descanso 🧘</p>
+    </ion-label>
+  </ion-item>
+  }
 </ion-list>

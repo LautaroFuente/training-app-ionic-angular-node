@@ -1,0 +1,31 @@
+.create-content {
+  --background: #0f172a;
+}
+
+.section {
+  padding: 16px 16px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  h3 {
+    color: #e5e7eb;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-left: 4px;
+  }
+}
+
+/* Swipers */
+.swiper-container-to-select,
+.swiper-container-selected {
+  padding-bottom: 24px;
+}
+
+.swiper-pagination-bullet {
+  background: #9ca3af;
+}
+
+.swiper-pagination-bullet-active {
+  background: #22c55e;
+}

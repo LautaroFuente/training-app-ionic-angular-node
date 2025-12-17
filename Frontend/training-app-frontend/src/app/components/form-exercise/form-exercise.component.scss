@@ -1,0 +1,18 @@
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+ion-item {
+  --background: #111827;
+  --border-radius: 12px;
+}
+
+ion-button {
+  margin-top: 16px;
+  height: 48px;
+  border-radius: 12px;
+
+  --background: #22c55e;
+}

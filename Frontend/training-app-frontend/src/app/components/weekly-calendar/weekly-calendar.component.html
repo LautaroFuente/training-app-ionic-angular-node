@@ -1,27 +1,40 @@
-<ion-grid>
+<ion-grid class="calendar-grid">
   <ion-row>
     @for (day of weekDays; track day.name) {
-      <ion-col size="12">
-        <div 
-          class="day-box"
-          cdkDropList (cdkDropListDropped)="onDrop($event)" [cdkDropListData]="day" [id]="day.name"
-        >
+    <ion-col size="12" size-md="6" size-lg="4">
+      <div
+        class="day-card"
+        cdkDropList
+        (cdkDropListDropped)="onDrop($event)"
+        [cdkDropListData]="day"
+        [id]="day.name"
+      >
+        <div class="day-header">
           <ion-label>{{ day.name }}</ion-label>
 
-          <!-- Botón para eliminar rutinas del día -->
-          <ion-button fill="clear" color="danger" (click)="removeRoutineFromDay(1)">
-            <ion-icon name="close-circle"></ion-icon>
-          </ion-button>
-
           @if (day.routines.length > 0) {
-            <div>
-              @for (routine of day.routines; track routine.id) {
-                <app-routine-card [routine]="routine"></app-routine-card>
-              }
-            </div>
+          <ion-button
+            fill="clear"
+            size="small"
+            color="danger"
+            (click)="removeRoutineFromDay(1)"
+          >
+            <ion-icon name="trash-outline"></ion-icon>
+          </ion-button>
           }
         </div>
-      </ion-col>
+
+        @if (day.routines.length > 0) {
+        <div class="routines-container">
+          @for (routine of day.routines; track routine.id) {
+          <app-routine-card [routine]="routine"></app-routine-card>
+          }
+        </div>
+        } @else {
+        <p class="empty-day">Arrastrá una rutina acá</p>
+        }
+      </div>
+    </ion-col>
     }
   </ion-row>
 </ion-grid>
@@ -29,4 +42,3 @@
 <!-- Crear interface de day, que el metodo que carga los diasm traiga la info completa de un dia y sus rutinas
       cambiaria la interface de lo que se guarda en weekdays y asi siempre tendria a mano la info del dia
       como su id para los metodos de agregarle o quitarle una rutina-->
-

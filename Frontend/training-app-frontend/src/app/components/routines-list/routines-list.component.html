@@ -1,14 +1,18 @@
-<ion-list>
-  @for (routine of routines; track routine.id){
-  <ion-item>
-    <!-- Card de presentacion de la rutina -->
-    <app-routine-card [routine]="routine" cdkDrag [cdkDragData]="routine"></app-routine-card>
+<ion-list class="routines-list">
+  @for (routine of routines; track routine.id) {
+  <ion-item lines="none">
+    <app-routine-card
+      [routine]="routine"
+      cdkDrag
+      [cdkDragData]="routine"
+    ></app-routine-card>
   </ion-item>
-} @empty {
-  <ion-item>
+  } @empty {
+  <ion-item lines="none" class="empty-state">
     <ion-label>
       <h2>No hay rutinas</h2>
+      <p>Creá tu primera rutina 💪</p>
     </ion-label>
   </ion-item>
-}
+  }
 </ion-list>
