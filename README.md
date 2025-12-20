@@ -1,5 +1,5 @@
 # 🏋🏻 Training app
---------------
+---------------
 ## 📖 Description
 
 ## 🚀 Getting Started
